@@ -1,0 +1,36 @@
+{% load static %}
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>    
+    <script src="{%static 'js/bootstrap.min.js'  %}"></script>
+    <!--<script src="{% static 'js/apexcharts.min.js' %}"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    
+  </head>
+  <body >
+    <ul class="nav nav-tabs nav-fill">
+        <li class="nav-item">
+          <a class="nav-link " href="{%url 'app_home'%}">Produção</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{%url 'app_cadastro'%}">Cadastro</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{%url 'app_consulta'%}">Consulta</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="{%url 'app_atualiza'%}">Atualiza</a>
+        </li>
+      </ul>
+   
+    
+    {%block 'conteudo'%}{%endblock%}
+  </body>
+  </html>
+    

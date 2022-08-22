@@ -1,0 +1,87 @@
+{%extends 'base.html'%} 
+
+{%block 'conteudo'%}
+<div class="container">
+    <h1>Página de consulta</h1>
+    <table class="table table-dark">
+        <thead >
+            <tr>
+              <th scope="col">Data</th>
+              <th scope="col">Temperatura</th>
+              <th scope="col">pressão</th>              
+            </tr>
+        </thead>
+        {% for valores in dadosSecador %}        
+        <tbody>
+            <tr>	
+                <td scope="row">
+                    {{ valores.data}}
+                </td>
+                <td scope="row">
+                    {{ valores.temperatura }}
+                </td>
+                <td scope="row">
+                    {{ valores.pressao }}
+                </td>
+            </tr>
+        </tbody>    
+        {%endfor%}
+    </table>
+    <div class="row">
+    <div class="col-6">
+    <canvas id="line-chart" width="800" height="450"></canvas>
+      <script>
+            new Chart(document.getElementById("line-chart"), {
+            type: 'line',
+            data: {
+              labels: ["8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00"],
+              datasets: [{ 
+                  data: [50,80,100, 80, 70, 50, 70],
+                  label: "Pressão",
+                  borderColor: "#3e95cd",
+                  fill: false
+                }, { 
+                  data: [30,90, 50, 30, 50, 80, 100],
+                  label: "Temperatura",
+                  borderColor: "#8e5ea2",
+                  fill: false
+                }
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'World population per region (in millions)'
+              }
+            }
+          });
+      </script>
+    </div>
+    <div class="col-6">
+      <canvas id="bar-chart-horizontal" width="800" height="450"></canvas>
+      <script>
+            new Chart(document.getElementById("bar-chart-horizontal"), {
+            type: 'horizontalBar',
+            data: {
+              labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+              datasets: [
+                {
+                  label: "Population (millions)",
+                  backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                  data: [2478,5267,734,784,433]
+                }
+              ]
+            },
+            options: {
+              legend: { display: false },
+              title: {
+                display: true,
+                text: 'Predicted world population (millions) in 2050'
+              }
+            }
+        });
+      </script>
+    </div>
+  </div>
+</div>    
+{%endblock%}
