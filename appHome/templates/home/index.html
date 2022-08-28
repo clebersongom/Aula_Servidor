@@ -1,7 +1,182 @@
 
 
 {%extends 'base.html'%} 
-
+{% load static %}
 {%block 'conteudo'%}
-    <h1>Pagina Home</h1>
+<div class="container">
+    <!-- Blocos -->     
+    <div class="row">
+        <div class="col-sm-3 col-lg-3">
+            <!-- Bloco menor 1 -->
+                    <div class="half-unit" style="text-align:center">
+                        <dtitle >Usuário</dtitle>
+                        <hr>
+                            <div class="clockcenter">
+                                <digiclock>Cargo</digiclock>
+                            </div>
+                    </div>
+      
+            <!-- Bloco menor 2 -->
+                  <div class="half-unit" style="text-align:center">
+                        <dtitle>Ordem de produção</dtitle>
+                        <hr>
+                        Inserir<br/> 
+                        Ordem de produção
+                        <!--<div class="modal-body">
+                            <h5>Popover in a modal</h5>
+                            <p>This <a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-content="Popover body content is set in this attribute.">button</a> triggers a popover on click.</p>
+                            <hr>
+                            <h5>Tooltips in a modal</h5>
+                            <p><a href="#" class="tooltip-test" title="Tooltip">This link</a> and <a href="#" class="tooltip-test" title="Tooltip">that link</a> have tooltips on hover.</p>
+                        </div>    
+                    -->    
+                  </div>    
+      
+        </div>
+        <div class="col-sm-3 col-lg-3 ">
+            <div class="dash-unit" style="text-align:center">
+                <dtitle>Usuário</dtitle>
+                <hr>      
+            <h2>Cleberson2</h2>      
+            <br>
+                
+            </div>
+        </div>
+        <div class="col-sm-3 col-lg-3 ">
+            <div class="dash-unit" style="text-align:center">
+                <dtitle>Usuário</dtitle>
+                <hr>      
+            <h2>Cleberson3</h2>      
+            <br>
+                
+            </div>
+        </div>
+        <div class="col-sm-3 col-lg-3">
+            <!-- Bloco menor 1 -->
+                    <div class="half-unit" style="text-align:center">
+                        <dtitle>Produção</dtitle>
+                        <hr>
+                            <div class="clockcenter">
+                                <bold>Online</bold> <br/> 1522</p>
+                            </div>
+                  </div>
+      
+            <!-- Bloco menor 2 -->
+                  <div class="half-unit" style="text-align:center">
+                        <dtitle>Tempo de máquina parada</dtitle>
+                        <hr>
+                        <div class="cont">
+                          <p><img src="images/up.png" alt=""> <bold>Paradas</bold><br/>  356 Min.</p>
+                      </div>
+                  </div>
+      
+        </div>
+            </div><!-- /row -->
+            <div class="row">
+                <div class="col-sm-3 col-lg-3 ">
+                    <div class="dash-unit" >
+                        <dtitle>Ordem de produção em aberto</dtitle>
+                        <hr>      
+                        <div class="framemail">
+                            <div class="window">
+                                <ul class="mail">
+                                    <li>
+                                        <i class="unread"></i>
+                                        <img class="avatar" src="{% static 'images/logoOp.PNG' %}" alt="avatar">
+                                        
+                                        <p class="sender">OP 3565</p>
+                                        <p class="message"><strong>Operador</strong> - João</p>
+                                        
+                                    </li>
+                                    <li>
+                                        <i class="unread"></i>
+                                        <img class="avatar" src="{% static 'images/logoOp.PNG' %}" alt="avatar">
+                                        <p class="sender">OP 3658</p>
+                                        <p class="message"><strong>Operador</strong> - Maria</p>
+                                        
+                                    </li>
+                                    <li>
+                                        <i class="unread"></i>
+                                        <img class="avatar" src="{% static 'images/logoOp.PNG' %}" alt="avatar">
+                                        <p class="sender">OP 2525</p>
+                                        <p class="message"><strong>Operador</strong> - Paulo</p>
+                                        
+                                    </li>
+                                    <li>
+                                        <i class="unread"></i>
+                                        <img class="avatar" src="{% static 'images/logoOp.PNG' %}" alt="avatar">
+                                        <p class="sender">OP 4748</p>
+                                        <p class="message"><strong>Operador</strong> - Roberto</p>
+                                        
+                                    </li>
+                                    <li>
+                                        <i class="unread"></i>
+                                        <img class="avatar" src="{% static 'images/logoOp.PNG' %}" alt="avatar">
+                                        <p class="sender">OP 898</p>
+                                        <p class="message"><strong>Operador</strong> - Tamares</p>
+                                        
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>  
+                    </div>                    
+                </div> <!--fim div email-->
+                <div class="col-sm-6 col-lg-6 ">
+                    <div class="dash-unit bg-white text-dark" style="text-align:center">
+                        <dtitle>Gráfico Hora X Hora</dtitle>
+                        <hr>   
+                        <canvas id="line-chart" width="800" height="350"></canvas>   
+                        <script> 
+                            new Chart(document.getElementById("line-chart"), {
+                            type: 'line',
+                            data: {
+                              labels: [730,830,930,1030,1130,1230,1330,1430,1530,1630,1730],
+                              datasets: [{ 
+                                  data: [10,20,30,35,36,40,45,46,70,75,80], // utiliza o Json como variavel do gráfico
+                                  label: "Produção",
+                                  borderColor: "#3e95cd",
+                                  fill: false
+                                },
+                                 { 
+                                  data: [10,20,30,40,50,60,70,80,90,100,110],
+                                  label: "Meta",
+                                  borderColor: "#8e5ea2",
+                                  fill: false
+                                }
+                              ]
+                            },
+                            options: {
+                              title: {
+                                display: true,
+                                text: 'Gráfico de produção Hora X Hora'
+                              }
+                            }
+                          });
+                      </script>
+                    <br>
+                        
+                    </div>
+                </div>
+                <div class="col-sm-3 col-lg-3 ">
+                    <div class="dash-unit" style="text-align:center">
+                        <dtitle>Usuário</dtitle>
+                        <hr>      
+                    <h2>Cleberson2</h2>      
+                    <br>
+                        
+                    </div>
+                </div>
+            </div> 
+             
+        </div>
+        
+    </div>
+    
+    
+</div>
+
+
+
+
+    
 {%endblock%}
