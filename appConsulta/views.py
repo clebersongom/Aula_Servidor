@@ -22,4 +22,5 @@ def index(request):
        
     
     return render(request, 'consulta/index.html', {'pressao_Secador' : pressao, 'temperatura_secador' : temp, 'dados_banco' : dadosSecador,'umidade_secador':umidade, 'dia':dia})
+    
   
