@@ -24,16 +24,9 @@
                             <div class="row">
                               <div class="col">
                                 <select class="form-control-lg" id="exampleFormControlSelect2">
-                                    <option>10000</option>
-                                    <option>22518</option>
-                                    <option>38848</option>
-                                    <option>41455</option>
-                                    <option>53655</option>
-                                    <option>17484</option>
-                                    <option>21255</option>
-                                    <option>33256</option>
-                                    <option>44588</option>
-                                    <option>53151</option>
+                                    {% for op in opsCadastradas %}
+                                    <option>{{op.numero_op}}</option> 
+                                    {% endfor %}                                   
                                   </select>
                               </div>
                               <div class="col ">
@@ -88,20 +81,35 @@
             </div><!-- /row -->
             <div class="row "> 
                 <div class="col-sm-3 col-lg-3 ">
-                    <div class="dash-unit" >
+                    <div class="dash-unit overflow-auto" >
                         <dtitle>Ordem de produção em aberto</dtitle>
                         <hr>      
                         <div class="framemail ">
-                            <div class="window">
-                                <ul class="mail">
+                            <div class="window ">
+                                <ul class="mail ">    
+                                    {% for opin in opsIniciadas %}                           
                                     <li>
                                         <i class="unread"></i>
                                         <img class="avatar" src="{% static 'images/logoOp.PNG' %}" alt="avatar">
                                         
-                                        <p class="sender">OP 3565</p>
+                                        <p class="sender">OP {{opin.numero_op}}</p>
+                                        <p class="message"><strong>Operador</strong> - João</p>                                        
+                                    </li>  
+                                    {% endfor %}    
+                                    
+                                   <!--
+                                    
+                                    
+                                    <li>
+                                        <i class="unread"></i>
+                                        <img class="avatar" src="{% static 'images/logoOp.PNG' %}" alt="avatar">
+                                        
+                                        <p class="sender">OP {{op_in.numero_op}}</p>
                                         <p class="message"><strong>Operador</strong> - João</p>
                                         
                                     </li>
+                                    
+                                    
                                     <li>
                                         <i class="unread"></i>
                                         <img class="avatar" src="{% static 'images/logoOp.PNG' %}" alt="avatar">
@@ -129,7 +137,7 @@
                                         <p class="sender">OP 898</p>
                                         <p class="message"><strong>Operador</strong> - Tamares</p>
                                         
-                                    </li>
+                                    </li>-->
                                 </ul>
                             </div>
                         </div>  

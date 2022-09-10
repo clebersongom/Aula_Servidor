@@ -10,7 +10,7 @@ class CadastroOp(models.Model):
     expessura_capa          = models.CharField(max_length=20,blank=True)
     qualidade_capa          = models.CharField(max_length=20,blank=True)
     quantidade_producao     = models.CharField(max_length=20,blank=True)
-    prioridade              = models.CharField(max_length=20,blank=True)
+    #prioridade              = models.CharField(max_length=20,blank=True)
     hora_inicio_prod        = models.CharField(max_length=20,blank=True)# no cadastro incuir null
     hora_fim_prod           = models.CharField(max_length=20,blank=True)
     
