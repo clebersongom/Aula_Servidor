@@ -3,14 +3,14 @@ from django.db import models
 from django.utils import timezone
 
 class CadastroOp(models.Model):
-    numero_op               = models.CharField(max_length=20)# Limitendo a quantidade de caracteres
-    fornecedor              = models.CharField(max_length=20)
-    largura_capa            = models.FloatField()
-    comprimento_capa        = models.FloatField()
-    expessura_capa          = models.FloatField()
-    qualidade_capa          = models.CharField(max_length=20)
-    quantidade_producao     = models.IntegerField()
-    prioridade              = models.CharField(max_length=20)
-    hora_inicio_prod        = models.DateTimeField()# no cadastro incuir null
-    hora_fim_prod           = models.DateTimeField()
+    numero_op               = models.CharField(max_length=20,blank=True)# Limitendo a quantidade de caracteres
+    fornecedor              = models.CharField(max_length=20,blank=True)
+    largura_capa            = models.CharField(max_length=20,blank=True)#FloatField
+    comprimento_capa        = models.CharField(max_length=20,blank=True)
+    expessura_capa          = models.CharField(max_length=20,blank=True)
+    qualidade_capa          = models.CharField(max_length=20,blank=True)
+    quantidade_producao     = models.CharField(max_length=20,blank=True)
+    prioridade              = models.CharField(max_length=20,blank=True)
+    hora_inicio_prod        = models.CharField(max_length=20,blank=True)# no cadastro incuir null
+    hora_fim_prod           = models.CharField(max_length=20,blank=True)
     
