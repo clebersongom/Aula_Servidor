@@ -20,10 +20,12 @@
                   <div class="half-unit "  style="text-align:center;">
                         <dtitle>Ordem de produção</dtitle>
                         <hr>                         
-                        <form>
+                        <form method="POST" action="{%url 'app_home'%}">
+                            {% csrf_token %}
+                            
                             <div class="row">
                               <div class="col">
-                                <select class="form-control-lg" id="exampleFormControlSelect2">
+                                <select class="form-control-lg" id="exampleFormControlSelect2" name="abrir_op">
                                     {% for op in opsCadastradas %}
                                     <option>{{op.numero_op}}</option> 
                                     {% endfor %}                                   
@@ -38,13 +40,26 @@
                  </div>    
       
         </div>
-        <div class="col-sm-3 col-lg-3 ">
+        <div class="col-sm-3 col-lg-3">
             <div class="dash-unit" style="text-align:center">
-                <dtitle>Usuário</dtitle>
-                <hr>      
-            <h2>Informação OP</h2>   
-            OP  
-            <br>
+                <dtitle>OP</dtitle><br/>
+                
+                <div style="text-align:left">    
+                {% for abrir_op in op_aberta %}
+                  
+                    {{abrir_op.numero_op}}<br/>              
+                    {{abrir_op.fornecedor}} <br/>                 
+                    {{abrir_op.largura_capa}}<br/>                   
+                    {{abrir_op.comprimento_capa}} <br/>                 
+                    {{abrir_op.expessura_capa}}<br/>                   
+                    {{abrir_op.qualidade_capa}}<br/>                   
+                    {{abrir_op.quantidade_producao}} <br/>                  
+                    {{abrir_op.hora_inicio_prod}} <br/>                 
+                    {{abrir_op.numero_op}}<br/>                   
+                                      
+                {% endfor %}
+                </div>      
+            
                 
             </div>
         </div>
@@ -97,47 +112,7 @@
                                     </li>  
                                     {% endfor %}    
                                     
-                                   <!--
-                                    
-                                    
-                                    <li>
-                                        <i class="unread"></i>
-                                        <img class="avatar" src="{% static 'images/logoOp.PNG' %}" alt="avatar">
-                                        
-                                        <p class="sender">OP {{op_in.numero_op}}</p>
-                                        <p class="message"><strong>Operador</strong> - João</p>
-                                        
-                                    </li>
-                                    
-                                    
-                                    <li>
-                                        <i class="unread"></i>
-                                        <img class="avatar" src="{% static 'images/logoOp.PNG' %}" alt="avatar">
-                                        <p class="sender">OP 3658</p>
-                                        <p class="message"><strong>Operador</strong> - Maria</p>
-                                        
-                                    </li>
-                                    <li>
-                                        <i class="unread"></i>
-                                        <img class="avatar" src="{% static 'images/logoOp.PNG' %}" alt="avatar">
-                                        <p class="sender">OP 2525</p>
-                                        <p class="message"><strong>Operador</strong> - Paulo</p>
-                                        
-                                    </li>
-                                    <li>
-                                        <i class="unread"></i>
-                                        <img class="avatar" src="{% static 'images/logoOp.PNG' %}" alt="avatar">
-                                        <p class="sender">OP 4748</p>
-                                        <p class="message"><strong>Operador</strong> - Roberto</p>
-                                        
-                                    </li>
-                                    <li>
-                                        <i class="unread"></i>
-                                        <img class="avatar" src="{% static 'images/logoOp.PNG' %}" alt="avatar">
-                                        <p class="sender">OP 898</p>
-                                        <p class="message"><strong>Operador</strong> - Tamares</p>
-                                        
-                                    </li>-->
+                                  
                                 </ul>
                             </div>
                         </div>  
