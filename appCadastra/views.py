@@ -1,5 +1,5 @@
 from asyncio.windows_events import NULL
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from appCadastra.models import CadastroOp
 
 
@@ -33,8 +33,17 @@ def index(request):
 
     return render(request, 'cadastro/index.html',{'opsCadastradas': opsCadastradas})
 
-           
-
+def para_op(request):
+    if request.method == 'POST':        
+        op = request.POST['op'] 
+        atualiza = CadastroOp.objects.filter(numero_op = op).update( status = 'parado')
+        return redirect('app_home')
+        
+def finaliza_op(request):
+    if request.method == 'POST':        
+        op = request.POST['op']  
+        atualiza = CadastroOp.objects.filter(numero_op = op).update( hora_fim_prod = '2022', status = 'finalizado')
+        return redirect('app_home')
         
         
         

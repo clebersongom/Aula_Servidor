@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'appCadastra.apps.AppcadastraConfig',
     'appConsulta.apps.AppconsultaConfig',
     'appHome.apps.ApphomeConfig',
+    'appProducao.apps.AppproducaoConfig',
     
 ]
 

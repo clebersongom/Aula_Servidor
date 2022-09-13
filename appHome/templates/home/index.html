@@ -54,12 +54,27 @@
                     {{abrir_op.expessura_capa}}<br/>                   
                     {{abrir_op.qualidade_capa}}<br/>                   
                     {{abrir_op.quantidade_producao}} <br/>                  
-                    {{abrir_op.hora_inicio_prod}} <br/>                 
-                    {{abrir_op.numero_op}}<br/>                   
+                    {{abrir_op.hora_inicio_prod}} <br/>
+                    <div class="row">
+                        <div class="col-sm-6">   
+                            <form action="{% url 'para_op' %}" method="POST">
+                                {% csrf_token %}
+                                <input  type="hidden" value={{abrir_op.numero_op}} name="op">
+                                <button type="submit" class="btn btn-info ">PARAR OP</button>                    
+                            </form>
+                        </div>
+                        <div class="col-sm-6">    
+                            <form action="{% url 'finaliza_op' %}" method="POST">
+                                {% csrf_token %}
+                                <input  type="hidden" value={{abrir_op.numero_op}} name="op">
+                                <button type="submit" class="btn btn-info ">FINALIZAR OP</button>                    
+                            </form>  
+                        </div>
+                    </div>
+                       
                                       
                 {% endfor %}
-                </div>      
-            
+                </div> 
                 
             </div>
         </div>
