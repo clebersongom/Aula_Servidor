@@ -6,5 +6,7 @@ urlpatterns = [ # em minusculo
 
     path('', views.index, name ="app_cadastro"),
     path('paraOP/', views.para_op, name ="para_op"),
-    path('finalizaOP/', views.finaliza_op, name ="finaliza_op")
+    path('finalizaOP/', views.finaliza_op, name ="finaliza_op"),
+    path('abreOpParada/', views.abre_Op_parada, name ="abreOp_Parada")
+
 ]

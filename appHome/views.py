@@ -9,9 +9,11 @@ def index(request):
         
         abrir_op = request.POST['abrir_op']
         atualiza =CadastroOp.objects.filter(numero_op = abrir_op).update(hora_inicio_prod = '2020' ,status ='producao')
-        op_aberta = CadastroOp.objects.filter(numero_op = abrir_op)
-    else:
-        op_aberta = ''  
+        
+    op_aberta = CadastroOp.objects.filter(status = 'producao') # busca OP em produção
+
+    if not op_aberta: # verirfica se OP existe
+        op_aberta =''
 
     
     opsCadastradas = CadastroOp.objects.filter(hora_inicio_prod = '') 

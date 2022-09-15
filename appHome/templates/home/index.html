@@ -116,16 +116,19 @@
                         <hr>      
                         <div class="framemail ">
                             <div class="window ">
-                                <ul class="mail ">    
-                                    {% for opin in opsIniciadas %}                           
-                                    <li>
-                                        <i class="unread"></i>
-                                        <img class="avatar" src="{% static 'images/logoOp.PNG' %}" alt="avatar">
-                                        
-                                        <p class="sender">OP {{opin.numero_op}}</p>
-                                        <p class="message"><strong>Operador</strong> - João</p>                                        
-                                    </li>  
-                                    {% endfor %}    
+                                <ul class="mail"> 
+                                        {% for opin in opsIniciadas %}  <!--<input type="submit" value="ABRIR">--> 
+                                            <form action="{% url 'abreOp_Parada' %}" method="POST">
+                                                {% csrf_token %}                   
+                                                <li>
+                                                    <i class="unread"></i>
+                                                    <input type="hidden" name="op" value="{{opin.numero_op}}">
+                                                    <input type="image" src="{% static 'images/open.png' %}" style=" height:50px;" >                                           
+                                                    <p class="sender">OP {{opin.numero_op}}</p>
+                                                    <p class="message"><strong>Operador</strong> - João </p>                                                                                        
+                                                </li>
+                                            </form>    
+                                        {% endfor %}    
                                     
                                   
                                 </ul>

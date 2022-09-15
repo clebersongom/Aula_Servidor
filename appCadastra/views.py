@@ -46,9 +46,8 @@ def finaliza_op(request):
         return redirect('app_home')
         
         
-        
-    
-    
-   
-
-    
+def abre_Op_parada(request):
+    if request.method == 'POST':
+        op = request.POST['op']
+        atualiza = CadastroOp.objects.filter(numero_op = op).update(status = 'producao')
+        return redirect('app_home')
