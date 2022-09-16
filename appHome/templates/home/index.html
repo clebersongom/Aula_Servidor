@@ -20,23 +20,55 @@
                   <div class="half-unit "  style="text-align:center;">
                         <dtitle>Ordem de produção</dtitle>
                         <hr>                         
-                        <form method="POST" action="{%url 'app_home'%}">
+                        <form method="POST" action="{%url 'inserirOP'%}">
                             {% csrf_token %}
                             
                             <div class="row">
                               <div class="col">
                                 <select class="form-control-lg" id="exampleFormControlSelect2" name="abrir_op">
-                                    {% for op in opsCadastradas %}
-                                    <option>{{op.numero_op}}</option> 
-                                    {% endfor %}                                   
-                                  </select>
+                                {%if opsCadastradas%}   
+                                    {% for op in opsCadastradas %}                                    
+                                    <option >{{op.numero_op}}</option> 
+                                    {% endfor %} 
+                                    {%else%}
+                                    <option >Sem Ops</option>
+                                {% endif %}   
+                                                                   
+                                </select>
                               </div>
                               <div class="col ">
-                                <button type="submit" class="btn btn-success btn-lg">Inserir</button>
-                              </div>
+                                {% if op_aberta %}
+                                    <button type="submit" class="btn btn-success btn-lg disabled">OPERANDO</button>
+                                    {% else %}                                    
+                                    <!--inicio modal-->
+                                <button type="button" class="btn btn-success  btn-lg" data-toggle="modal" data-target="#exampleModalCenter1">
+                                    INSERIR OP
+                                </button>
+                                <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">INICIAR OP</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body alert alert-warning">
+                                            Deseja iniciar a produção desta OP?                           
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                        <button type="submit" class="btn btn-primary" value="Sim">sim</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <!--Fim modal-->
+                                    
+                                {% endif %}
+                              </div>                              
                             </div>
-                          </form>                        
-                       
+                          </form> 
                  </div>    
       
         </div>
@@ -57,17 +89,68 @@
                     {{abrir_op.hora_inicio_prod}} <br/>
                     <div class="row">
                         <div class="col-sm-6">   
-                            <form action="{% url 'para_op' %}" method="POST">
+                            <form id="form1" action="{% url 'para_op' %}" method="POST">
                                 {% csrf_token %}
                                 <input  type="hidden" value={{abrir_op.numero_op}} name="op">
-                                <button type="submit" class="btn btn-info ">PARAR OP</button>                    
+                                
+                                <!--inicio modal-->
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
+                                    PARAR OP
+                                </button>
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">PARAR OP</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body alert alert-warning">
+                                            Tem certeza que deseja PARAR com a produção desta OP?                           
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                        <button type="submit" class="btn btn-primary" value="Sim">sim</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            <!--Fim modal-->
+
                             </form>
                         </div>
                         <div class="col-sm-6">    
-                            <form action="{% url 'finaliza_op' %}" method="POST">
+                            <form id="form2" action="{% url 'finaliza_op' %}" method="POST">
                                 {% csrf_token %}
                                 <input  type="hidden" value={{abrir_op.numero_op}} name="op">
-                                <button type="submit" class="btn btn-info ">FINALIZAR OP</button>                    
+                                <!--<button type="submit" class="btn btn-info ">FINALIZAR OP</button>-->
+                                
+                                <!--inicio modal-->
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter1">
+                                    FINALIZAR OP
+                                </button>
+                                <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">FINALIZAR OP</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body alert alert-warning">
+                                            Tem certeza que deseja FINALIZAR a produção desta OP?                           
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                        <button type="submit" class="btn btn-primary" value="Sim">sim</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <!--Fim modal-->
+
                             </form>  
                         </div>
                     </div>
@@ -123,7 +206,13 @@
                                                 <li>
                                                     <i class="unread"></i>
                                                     <input type="hidden" name="op" value="{{opin.numero_op}}">
-                                                    <input type="image" src="{% static 'images/open.png' %}" style=" height:50px;" >                                           
+                                                    <input type="image" src="{% static 'images/open.png' %}" style=" height:50px;" data-toggle="modal" data-target="#exampleModalCenter1"> 
+
+                                                    <!--inicio modal-->
+                                
+                                                    <!--Fim modal-->
+
+                                                                                              
                                                     <p class="sender">OP {{opin.numero_op}}</p>
                                                     <p class="message"><strong>Operador</strong> - João </p>                                                                                        
                                                 </li>
