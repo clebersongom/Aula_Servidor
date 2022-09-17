@@ -25,7 +25,7 @@
                             
                             <div class="row">
                               <div class="col">
-                                <select class="form-control-lg" id="exampleFormControlSelect2" name="abrir_op">
+                                <select class="form-control" id="exampleFormControlSelect2" name="abrir_op">
                                 {%if opsCadastradas%}   
                                     {% for op in opsCadastradas %}                                    
                                     <option >{{op.numero_op}}</option> 
@@ -38,11 +38,11 @@
                               </div>
                               <div class="col ">
                                 {% if op_aberta %}
-                                    <button type="submit" class="btn btn-success btn-lg disabled">OPERANDO</button>
+                                    <button type="submit" class="btn btn-success  disabled">OPERANDO</button>
                                     {% else %}                                    
                                     <!--inicio modal-->
-                                <button type="button" class="btn btn-success  btn-lg" data-toggle="modal" data-target="#exampleModalCenter1">
-                                    INSERIR OP
+                                <button type="button" class="btn btn-success " data-toggle="modal" data-target="#exampleModalCenter1">
+                                    INSERIR
                                 </button>
                                 <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
