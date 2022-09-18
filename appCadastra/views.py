@@ -15,7 +15,8 @@ def index(request):
             comprimento = request.POST['cad_comprimento']
             espessura   = request.POST['cad_espessura']
             producao    = request.POST['cad_producao']
-            qualidade   = request.POST['cad_qualidade']               
+            qualidade   = request.POST['cad_qualidade']  
+                       
             # Enviando os valores do formulario para classe MODEL
             cadastrar = CadastroOp(
                 numero_op           = op,
@@ -79,6 +80,7 @@ def atualizarOP(request):
             espessura   = request.POST['edit_espessura']
             producao    = request.POST['edit_producao']
             qualidade   = request.POST['edit_qualidade']
+            status      = request.POST['edit_status']  
             consulta.update(
                 numero_op           = op,
                 fornecedor          = fornecedor,
@@ -87,6 +89,7 @@ def atualizarOP(request):
                 expessura_capa      = espessura,
                 qualidade_capa      = qualidade,
                 quantidade_producao = producao, 
+                status              = status,
                 )
             atualiza_sucess = True
             return render(request, 'cadastro/index.html',{'consulta': consulta, 'atualiza_sucess' : atualiza_sucess})

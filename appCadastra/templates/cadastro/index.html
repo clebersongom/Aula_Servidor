@@ -79,7 +79,12 @@
 </div>
 
 <div class="container"> 
-    
+    {% if semOP %}    
+    <div class="alert alert-danger" role="alert">
+        <p class="text-center">OP não existe</p>
+        
+    </div> 
+    {% endif %} 
     {% if mensagem %}    
     <div class="alert alert-danger" role="alert">
         <p class="text-center">OP não pode ser cadastrado! Já existe no banco de dados ou número da OP está vazio</p>
@@ -105,49 +110,48 @@
     <!--Inicio Campo consulta-->
 
     <div>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" >Pesquisar</a>          
-          
-            <div class="collapse navbar-collapse" id="conteudoNavbarSuportado" >
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item" style="margin-right: 10px;">
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Op's cadastradas</option>
-                        <option value="1">Op's paradas</option>
-                        <option value="2">Op's canceladas</option>
-                        <option value="3">Op em produção</option>
-                    </select> 
-                </li>
-                <li>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="busca_temp" value="recentes">
-                        <label class="form-check-label text-light bg-dark" for="inlineCheckbox1">Mais Antigas</label>
-                      </div> 
-                </li>
-                <li class="nav-item">                    
-                    <input type="date" style="margin-right: 10px;">
-                    <label class="form-check-label text-light bg-dark" for="inlineCheckbox1"style="margin-right: 10px;">Data1</label>
-                </li>
-                <li class="nav-item"> 
-                     
-                    <script>$('.datepicker').datepicker();</script>                  
-                    <input  type="date" style="margin-right: 10px;">
-                    <label class="form-check-label text-light bg-dark" for="inlineCheckbox1"style="margin-right: 10px;">Data2</label>
-                </li>
-                
-                <li class="nav-item" >
-                    <form class="form-inline my-2 my-lg-0" style="margin-right: 10px;">                    
-                    <input  class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
-                </li>
-                <li class="nav-item" >
+        <div class="row">
+            <div class="col-3">
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Pesquisa detalhada
+                </button>
+            </div> 
+                <div class="col-2">
+                    <form action="{% url 'pesquisaOP' %}" method="POST">
+                    {% csrf_token %}    
+                    <input  class="form-control mr-sm-2" type="search" placeholder="Pesquisar Op's" aria-label="Pesquisar" name="pesqOP">
+                </div>  
+                <div class="col-2">
                     <button  class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-                    </form>
-                </li>
-                
-              </ul>
-              
-            </div>
-          </nav>
+                    </form> 
+                </div>
+        </div> 
+        </p>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+                <div class="row">
+                    <div class="col-3">
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Op's cadastradas</option>
+                            <option value="1">Op's paradas</option>
+                            <option value="2">Op's canceladas</option>
+                            <option value="3">Op em produção</option>
+                        </select> 
+                    </div>
+                    <div class="col-3">
+                        <input type="date" class="form-control" style="margin-right: 10px;">
+                    </div>
+                    <div class="col-3">
+                        <input type="date" class="form-control" style="margin-right: 10px;">
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                    </div>
+                </div>
+          </div>
+        </div>
+        
+                         
     </div>
 
     <!--Fim Campo consulta-->
@@ -163,12 +167,82 @@
                   <th scope="col">Espessura</th>
                   <th scope="col">Qualidade</th>
                   <th scope="col">Quantidade</th>
-                  <th scope="col">       
-                  </th>
-                  <th scope="col">                    
-                  </th>          
+                  <th scope="col">Status</th>
+                  <th scope="col">      </th>  
+                  <th scope="col">      </th>          
                 </tr>
             </thead>
+    {% if consultaOP %}        
+            {% for consOP in  consultaOP %}
+                <tbody>
+                    <tr>
+                        <td scope="row">
+                            {{ consOP.numero_op}}
+                        </td>
+                        <td scope="row">
+                            {{ consOP.fornecedor}}
+                        </td>
+                        <td scope="row">
+                            {{ consOP.largura_capa }}
+                        </td>
+                        <td scope="row">
+                            {{ consOP.comprimento_capa }}
+                        </td>
+                        <td scope="row">
+                            {{ consOP.expessura_capa }}
+                        </td>
+                        <td scope="row">
+                            {{ consOP.qualidade_capa }}
+                        </td>
+                        <td scope="row">
+                            {{ consOP.quantidade_producao }}
+                        </td>  
+                        <td scope="row">
+                            {{ consOP.status }}
+                        </td>
+                        <td scope="row">
+                            <form action="{% url 'editarOP' %}" method="POST">   
+                                {% csrf_token %} 
+                                <input type="hidden" name="editar" value={{consOP.numero_op}}>
+                                <button type="submit" class="btn btn-info" >Editar</button>
+                            </form>
+                        </td>   
+                        <td scope="row">
+                            <form action="{% url 'cancelarOP' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="cancelarOP" value='{{op.numero_op}}'>
+                                
+                                <!--inicio modal-->
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+                                    Cancelar
+                                </button>
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">CANCELAR OP</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body alert alert-warning">
+                                            Tem certeza que deseja cancelar essa OP                            
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                            <button type="submit" class="btn btn-primary" value="Sim">sim</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                              <!--Fim modal-->
+                            </form>
+                        </td>           
+                    </tr>
+                </tbody>
+
+            {% endfor %}
+    {% endif %}        
             
     {% for op in opsCadastradas %}
         <tbody>
@@ -193,7 +267,10 @@
                 </td>
                 <td scope="row">
                     {{ op.quantidade_producao }}
-                </td>                
+                </td>  
+                <td scope="row">
+                    {{ op.status }}
+                </td>              
                 <td scope="row">
                     <form action="{% url 'editarOP' %}" method="POST">   
                         {% csrf_token %} 
@@ -246,26 +323,30 @@
                     <input class="form-control-plaintext" type="text" value="{{editar.numero_op}}" name="edit_op" readonly>
                 </td>
                 <td scope="row">
-                    <input type="text" value="{{editar.fornecedor}}" name="edit_fornecedor">                    
+                    <input class="form-control-plaintext" type="text" value="{{editar.fornecedor}}" name="edit_fornecedor">                    
                 </td>
                 <td scope="row">
-                    <input type="text" value="{{editar.largura_capa}}" name="edit_largura">
+                    <input class="form-control-plaintext" type="text" value="{{editar.largura_capa}}" name="edit_largura">
                     
                 </td>
                 <td scope="row">
-                    <input type="text" value="{{editar.comprimento_capa}}" name="edit_comprimento">
+                    <input class="form-control-plaintext" type="text" value="{{editar.comprimento_capa}}" name="edit_comprimento">
                     
                 </td>
                 <td scope="row">
-                    <input type="text" value="{{editar.expessura_capa}}" name="edit_espessura">
+                    <input class="form-control-plaintext" type="text" value="{{editar.expessura_capa}}" name="edit_espessura">
                     
                 </td>
                 <td scope="row">
-                    <input type="text" value="{{editar.qualidade_capa}}" name="edit_qualidade">
+                    <input class="form-control-plaintext" type="text" value="{{editar.qualidade_capa}}" name="edit_qualidade">
                     
                 </td>
                 <td scope="row">
-                    <input type="text" value="{{editar.quantidade_producao}}" name="edit_producao">
+                    <input class="form-control-plaintext" type="text" value="{{editar.quantidade_producao}}" name="edit_producao">
+                    
+                </td>
+                <td scope="row">
+                    <input class="form-control-plaintext" type="text" value="{{editar.status}}" name="edit_status">
                     
                 </td>
                 <td scope="row">                    

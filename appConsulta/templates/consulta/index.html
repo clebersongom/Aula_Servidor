@@ -3,86 +3,8 @@
 {%block 'conteudo'%}
 <div class="container">
     <h1>Página de consulta</h1>
-    <table class="table table-dark">
-        <thead >
-            <tr>
-              <th scope="col">Data</th>
-              <th scope="col">Temperatura</th>
-              <th scope="col">pressão</th>   
-              <th scope="col">Umidade</th>           
-            </tr>
-        </thead>
-        {% for valores in dados_banco %}        
-        <tbody>
-            <tr>	
-                <td scope="row">
-                    {{ valores.data}}
-                </td>
-                <td scope="row">
-                    {{ valores.temperatura }}
-                </td>
-                <td scope="row">
-                    {{ valores.pressao }}
-                </td>
-                <td scope="row">
-                  {{ valores.umidade }}
-              </td>
-            </tr>
-        </tbody>    
-        {%endfor%}       
-        <input id="t" type="hidden"  value="{{teste}}">      
-        
-    </table>
-    <div class="row">
-    <div class="col-6">
-    <canvas id="line-chart" width="800" height="450"></canvas>
-
-     <input id="press" type="hidden" value="{{pressao_Secador}}"/><!--Pega o objeto e coloca numa teg-->     
-     <input id="temp" type="hidden" value="{{temperatura_secador}}"/>
-     <input id="umid" type="hidden" value="{{umidade_secador}}"/>
-     <input id="dia" type="hidden" value="{{dia}}"/>
-     
-      <script>    
-        var pressao = JSON.parse(document.getElementById('press').value);// pega o valor do objeto na teg
-        var temperatura = JSON.parse(document.getElementById('temp').value);
-        var umidade = JSON.parse(document.getElementById('umid').value);
-        var dias = JSON.parse(document.getElementById('dia').value);        
-      </script>       
-      <script> 
-            new Chart(document.getElementById("line-chart"), {
-            type: 'line',
-            data: {
-              labels: dias,
-              datasets: [{ 
-                  data: pressao, // utiliza o Json como variavel do gráfico
-                  label: "Pressão",
-                  borderColor: "#3e95cd",
-                  fill: false
-                },
-                 { 
-                  data: temperatura,
-                  label: "Temperatura",
-                  borderColor: "#8e5ea2",
-                  fill: false
-                },
-                { 
-                  data: umidade,
-                  label: "Umidade",
-                  borderColor: "#3e11a8",
-                  fill: false
-                }
-              ]
-            },
-            options: {
-              title: {
-                display: true,
-                text: 'Gráfico de temperatura e pressão da linha do Secador'
-              }
-            }
-          });
-      </script>
-    </div>
     
-  </div>
+    
+  
 </div>    
 {%endblock%}

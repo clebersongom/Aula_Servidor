@@ -196,35 +196,54 @@
                 <div class="col-sm-3 col-lg-3 ">
                     <div class="dash-unit overflow-auto" >
                         <dtitle>Ordem de produção em aberto</dtitle>
-                        <hr>      
-                        <div class="framemail ">
-                            <div class="window ">
-                                <ul class="mail"> 
+                        <hr>    
+                        
                                         {% for opin in opsIniciadas %}  <!--<input type="submit" value="ABRIR">--> 
                                             <form action="{% url 'abreOp_Parada' %}" method="POST">
-                                                {% csrf_token %}                   
-                                                <li>
-                                                    <i class="unread"></i>
-                                                    <input type="hidden" name="op" value="{{opin.numero_op}}">
-                                                    <input type="image" src="{% static 'images/open.png' %}" style=" height:50px;" data-toggle="modal" data-target="#exampleModalCenter1"> 
-
-                                                    <!--inicio modal-->
-                                
+                                                {% csrf_token %}
+                                                <div class="row  text-white bg-dark pt-1 pb-1">
+                                                    <div class="col-2 ">
+                                                        <img  src="{% static 'images/open.png' %}" style=" height:35px;"  >
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <h5 class="card-title">OP  {{opin.numero_op}} </h5>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <input type="hidden" name="op" value="{{opin.numero_op}}">
+                                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter4">
+                                                            ABRIR
+                                                        </button>
+                                                    </div>
+                                                </div> 
+                                                     <!--inicio modal-->
+                                                        
+                                                        <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLongTitle">ABRIR OP</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                    </div>
+                                                                    <div class="modal-body alert alert-warning">
+                                                                        Tem certeza que deseja ABRIR esta OP em produção?                           
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                                                                    <button type="submit" class="btn btn-primary" value="Sim">sim</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     <!--Fim modal-->
 
-                                                                                              
-                                                    <p class="sender">OP {{opin.numero_op}}</p>
-                                                    <p class="message"><strong>Operador</strong> - João </p>                                                                                        
-                                                </li>
-                                            </form>    
-                                        {% endfor %}    
-                                    
-                                  
-                                </ul>
-                            </div>
-                        </div>  
-                    </div>                    
-                </div> <!--fim div email-->
+                                            </form>   
+                                              
+                                        {% endfor %} 
+                                      
+                    </div>             
+                </div> <!--row-->
                 <div class="col-sm-6 col-lg-6 ">
                     <div class="dash-unit bg-white text-dark" style="text-align:center">
                         <dtitle>Gráfico Hora X Hora</dtitle>
