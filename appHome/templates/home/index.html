@@ -176,8 +176,8 @@
                     <div class="half-unit" style="text-align:center">
                         <dtitle>Produção</dtitle>
                         <hr>
-                            <div class="clockcenter">
-                                <bold>Online</bold> <br/> 1522</p>
+                            <div class="clockcenter" id="producao">                                                             
+                                <!--Produção vindo de pagina produção por ajax-->
                             </div>
                   </div>
       
@@ -186,7 +186,12 @@
                         <dtitle>Tempo de máquina parada</dtitle>
                         <hr>
                         <div class="cont">
-                          <p><img src="images/up.png" alt=""> <bold>Paradas</bold><br/>  356 Min.</p>
+                            <bold>Paradas</bold>
+                            {% if consulta_prod%}
+                                    {% for prod in consulta_prod %}                                        
+                                         <p> {{prod.acum_maq_parada}}</p>
+                                    {% endfor %}
+                                {% endif %}
                       </div>
                   </div>
       

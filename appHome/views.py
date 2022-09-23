@@ -4,13 +4,14 @@ from queue import Empty
 from sqlite3 import Timestamp
 from django.shortcuts import render, redirect
 from appCadastra.models import CadastroOp
+#from appProducao.models import ProducaoOnLine
 from django.db.models import Q
 
-def index(request):
-
+def index(request):    
     op_aberta = CadastroOp.objects.filter(status = 'producao') # busca OP em produção
     opsCadastradas = CadastroOp.objects.filter(Q(hora_inicio_prod = ''), ~Q(status = 'cancelado')) 
-    opsIniciadas = CadastroOp.objects.filter( Q(status = 'parado'), ~Q(hora_inicio_prod = '') )# busca se diferente de ''    
+    opsIniciadas = CadastroOp.objects.filter( Q(status = 'parado'), ~Q(hora_inicio_prod = '') )# busca se diferente de '' 
+       
     return render(request, 'home/index.html',{'opsCadastradas': opsCadastradas,'opsIniciadas': opsIniciadas,'op_aberta':op_aberta})
 
 def inserirOP(request):

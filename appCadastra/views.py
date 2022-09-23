@@ -1,6 +1,7 @@
 from asyncio.windows_events import NULL
 from django.shortcuts import render, redirect
 from appCadastra.models import CadastroOp
+from appProducao.models import ProducaoOnLine
 from django.db.models import Q
 
 
@@ -110,3 +111,6 @@ def cancelarOP(request):
     
     return redirect('app_cadastro')
         
+def producaoOP(request):
+    consulta_prod = ProducaoOnLine.objects.all()
+    return render(request,'cadastro/producao.html',{'consulta_prod':consulta_prod})

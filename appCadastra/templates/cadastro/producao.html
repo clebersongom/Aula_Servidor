@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+        
+</head>
+<body>
+    <bold>Online</bold>
+        {% if consulta_prod%}
+            {% for prod in consulta_prod %} 
+                <p> {{prod.prod_online}}</p>
+            {% endfor %}
+        {% endif %}          
+</body>
+</html>
