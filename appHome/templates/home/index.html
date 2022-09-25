@@ -162,11 +162,13 @@
             </div>
         </div>
         <div class="col-sm-3 col-lg-3 ">
-            <div class="dash-unit" style="text-align:center">
-                <dtitle>Usuário</dtitle>
-                <hr>      
-            <h2>Informação OEE</h2> 
-            OEE   
+            <div class="dash-unit" style="text-align:center" >
+                <dtitle>Paradas</dtitle>
+                <hr>
+                <div class="clockcenter" ><!--id="paradas"-->
+                    <!--Paradas vindo de página paradas por ajax-->                            
+            </div> 
+                 
             <br>
                 
             </div>
@@ -177,22 +179,17 @@
                         <dtitle>Produção</dtitle>
                         <hr>
                             <div class="clockcenter" id="producao">                                                             
-                                <!--Produção vindo de pagina produção por ajax-->
+                                <!--Produção vindo de página produção por ajax-->
                             </div>
                   </div>
       
             <!-- Bloco menor 2 -->
                   <div class="half-unit" style="text-align:center">
-                        <dtitle>Tempo de máquina parada</dtitle>
+                        <dtitle>Tempo total de máquina parada</dtitle>
                         <hr>
-                        <div class="cont">
-                            <bold>Paradas</bold>
-                            {% if consulta_prod%}
-                                    {% for prod in consulta_prod %}                                        
-                                         <p> {{prod.acum_maq_parada}}</p>
-                                    {% endfor %}
-                                {% endif %}
-                      </div>
+                      <div class="clockcenter" ><!--id="paradas"-->
+                              <!--Paradas vindo de página paradas por ajax-->                            
+                      </div>                      
                   </div>
       
         </div>
@@ -299,10 +296,13 @@
             <div class="col-sm-12 col-lg-12 ">
                 <!-- Bloco menor 1 -->
                         <div class="half-unit h-auto" style="text-align:center"><!--h-auto define a largura dependendo do conteúdo-->
-                            <dtitle>Rodapé</dtitle>
+                            
+                            <div>
+                                <button type="button" class="btn btn-danger btn-lg btn-block">Justificativa de parada</button>
+                            </div>
                             <hr>
-                                <div class="clockcenter">
-                                    <bold>AdaVision</bold> 
+                                <div class="clockcenter" id="paradas" >
+                                     
                                 </div>
                         </div>
                         

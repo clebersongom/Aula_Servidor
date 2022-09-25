@@ -1,8 +1,12 @@
 from asyncio.windows_events import NULL
+from xmlrpc.client import DateTime
 from django.shortcuts import render, redirect
 from appCadastra.models import CadastroOp
 from appProducao.models import ProducaoOnLine
+from appProducao.models import MaquinaParada
 from django.db.models import Q
+from datetime import datetime
+
 
 
 def index(request):
@@ -114,3 +118,21 @@ def cancelarOP(request):
 def producaoOP(request):
     consulta_prod = ProducaoOnLine.objects.all()
     return render(request,'cadastro/producao.html',{'consulta_prod':consulta_prod})
+
+def paradasOP(request):
+    consul_parada = MaquinaParada.objects.filter(Q(status = 'producao'),~Q(data_parada = '1000-01-01 00:00:00.000000'),~Q(data_retorno = '1000-01-01 00:00:00.000000'),Q(justificativa = ''))# condicional da OP igual da produção
+    #encaminha para pagina e retira todas as linhas abaixo de condições.
+    # no botão na pagina inicial ao clicar abre toogle com as opções de justificativa se der
+    #para com <form>  ir atualizando no banco de dados na justificativa e quando OP for finalizada
+    # tirar modo produção
+    # colocar modo produção quando OP parada entrar em modo de produção
+    #consul_parada = MaquinaParada.objects.filter(status = 'producao')
+    #print(consul_parada)
+
+
+    if consul_parada: 
+        return render(request,'cadastro/paradas.html',{'consul_parada': consul_parada})        
+    else:
+        return render(request,'cadastro/paradas.html')
+
+    

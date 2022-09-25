@@ -11,6 +11,7 @@ urlpatterns = [ # em minusculo
     path('editarOP/', views.editarOP, name = "editarOP"),
     path('atualizar/', views.atualizarOP, name ="atualizarOP"),
     path('cancelarOP/', views.cancelarOP, name="cancelarOP"),
-    path('producaoOP/', views.producaoOP, name="producaoOP")
+    path('producaoOP/', views.producaoOP, name="producaoOP"),
+    path('paradasOP/', views.paradasOP, name="paradasOP")
     
 ]

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>    
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+        
+</head>
+<body>
+   
+        <div >
+            {% if consul_parada %}
+                {% for par in consul_parada %}
+                <table class="table table-danger">
+                    <thead >
+                        <tr >
+                            <td >Parada</td>
+                            <td>Retomada</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <trclass="table-danger"></trclass>
+                            <td scope="row" class="bg-danger">{{par.data_parada}}</td>
+                            <td scope="row" class="bg-danger">{{par.data_retorno}}</td>
+                        </tr>
+                        
+                        
+                    </tbody>    
+                </table>    
+                {% endfor %}
+            {% endif %} 
+        </div>           
+</body>
+</html>
