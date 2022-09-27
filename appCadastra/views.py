@@ -128,11 +128,25 @@ def paradasOP(request):
     # colocar modo produção quando OP parada entrar em modo de produção
     #consul_parada = MaquinaParada.objects.filter(status = 'producao')
     #print(consul_parada)
-
-
     if consul_parada: 
         return render(request,'cadastro/paradas.html',{'consul_parada': consul_parada})        
     else:
         return render(request,'cadastro/paradas.html')
 
+def justificaParada(request): 
+    cons_justifica = MaquinaParada.objects.filter(Q(status = 'producao'),~Q(data_parada = '1000-01-01 00:00:00.000000'),~Q(data_retorno = '1000-01-01 00:00:00.000000'),Q(justificativa = ''))# condicional da OP igual da produção
     
+    return render(request,'cadastro/justifica.html',{'cons_justifica': cons_justifica})
+
+
+def editaJustificativa(request):
+    if request.method == 'POST':       
+        op            = request.POST['op']
+        just            = request.POST['edit_justificativa'] # consicional alem da OP tbm as datas para salvar o item certo
+        consjustifica = MaquinaParada.objects.filter(Q(op = op))# condicional da OP igual da produção
+        consjustifica.update(justificativa = just)
+        cons_justifica = MaquinaParada.objects.filter(Q(status = 'producao'),~Q(data_parada = '1000-01-01 00:00:00.000000'),~Q(data_retorno = '1000-01-01 00:00:00.000000'),Q(justificativa = ''))# condicional da OP igual da produção
+        print(just)
+        print(op)
+        
+        return render(request,'cadastro/justifica.html',{'cons_justifica': cons_justifica})
