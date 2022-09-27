@@ -141,12 +141,13 @@ def justificaParada(request):
 
 def editaJustificativa(request):
     if request.method == 'POST':       
-        op            = request.POST['op']
-        just            = request.POST['edit_justificativa'] # consicional alem da OP tbm as datas para salvar o item certo
-        consjustifica = MaquinaParada.objects.filter(Q(op = op))# condicional da OP igual da produção
-        consjustifica.update(justificativa = just)
+        id            = request.POST['id'] 
+        just          = request.POST['edit_just'] 
+        consjustifica = MaquinaParada.objects.filter(Q(id = id)).update(justificativa = just)# condicional da OP igual da produção
+        
         cons_justifica = MaquinaParada.objects.filter(Q(status = 'producao'),~Q(data_parada = '1000-01-01 00:00:00.000000'),~Q(data_retorno = '1000-01-01 00:00:00.000000'),Q(justificativa = ''))# condicional da OP igual da produção
+        
         print(just)
-        print(op)
+        
         
         return render(request,'cadastro/justifica.html',{'cons_justifica': cons_justifica})

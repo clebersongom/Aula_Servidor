@@ -8,12 +8,9 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
-        
 </head>
-<body>  
-    
+<body> 
     <div class="container">
-        
         <ul class="nav nav-tabs nav-fill">
             <li class="nav-item">
               <a class="nav-link " style="color: rgb(255, 255, 255);" href="{%url 'app_home'%}">Produção</a>
@@ -35,16 +32,13 @@
               <!--{%url 'producaoOP'%}-->
             </li>
           </ul>
-      
         <div >
             {% if cons_justifica %}
-            <form action="{% url 'editaJustificativa' %}" method="POST">  
-                {% csrf_token %}
-                <div class="row mt-3 ">
+            <div class="row mt-3 ">  
                 {% for edit in cons_justifica %}
-                
-                    
                     <div class="card text-white bg-danger mb-3 col-3" ><!--style="max-width: 18rem;"-->
+                      <form action="{% url 'editaJustificativa' %}" method="POST">   
+                        {% csrf_token %}
                         <div class="card-header">
                             OP {{edit.op}}
                         </div>                        
@@ -54,20 +48,17 @@
                                 Retorno
                             <div class="card-title "> {{edit.data_retorno}}</div>
                             <div>
-                                <input type="hidden" value="{{edit.op}}" name="op">
-                                <input type="text" style="height: 183px;" class="form-control" placeholder="Digite aqui a justificativa da parada"  name="edit_justificativa">
+                                <input type="hidden" value="{{edit.id}}" name="id">
+                                <input type="text" name="edit_just" style="height: 183px;" class="form-control" placeholder="Digite aqui a justificativa da parada"  >
                             </div>
                             <div>
                                 <button class="btn btn-dark col-12" type="submit">Justificar</button>
                             </div>
-                            
                         </div>
                     </div>
-                   
+                  </form> 
                 {% endfor %}
             </div>
-               
-            </form>
             {% endif %} 
         </div>  
     </div>             
