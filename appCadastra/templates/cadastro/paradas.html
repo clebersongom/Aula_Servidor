@@ -6,29 +6,12 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>    
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
-<body>   
-        <div >
+<body >   
+        <div class="col-12">
             {% if consul_parada %}
             <form action="{% url 'justificaParada' %}" method="POST">  
                 {% csrf_token %}
-                {% for par in consul_parada %}
-                <table class="table table-danger">
-                    <thead >
-                        <tr >
-                            <td >Parada</td>
-                            <td></td>
-                            <td>Retomada</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="table-danger ">   
-                            <td scope="row" class="bg-danger">{{par.data_parada}}</td>
-                            <td scope="row" class="bg-danger"><button type="submit" class="btn btn-info btn-lg ">Justificativa de parada</button></td>
-                            <td scope="row" class="bg-danger">{{par.data_retorno}}</td>
-                        </tr>
-                    </tbody>    
-                </table>    
-                {% endfor %}
+                 <td scope="row" class="bg-danger"><button type="submit" class="btn btn-danger btn-lg w-100 h-100 p-4 " >Justificar parada</button></td>
             </form>
             {% endif %} 
         </div>           

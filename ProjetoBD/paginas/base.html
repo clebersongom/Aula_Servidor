@@ -40,6 +40,20 @@
             console.log(ajax)
         }
       </script>
+      <script>
+        function op_parada(){
+          let ajax = new XMLHttpRequest();
+            ajax.open('GET', 'cadastro/op_paradas/')
+            ajax.onreadystatechange = function(){
+              if(ajax.readyState == 4 && ajax.status ==200){
+                  document.getElementById('op_paradas').innerHTML =  ajax.responseText
+                }
+              
+            }
+            ajax.send()
+            console.log(ajax)
+        }
+      </script>
       
       
     </head>
@@ -76,7 +90,10 @@
            maq_parada()                  
             return setTimeout(loop1, 3000);
         })();
-        
+        (function op_parada() {
+          op_paradas()
+          return setTimeout(op_parada, 3000);
+        })();
         
     </script>
       
