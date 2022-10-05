@@ -14,4 +14,5 @@ class CadastroOp(models.Model):
     hora_fim_prod           = models.CharField(max_length=20,blank=True)
     prod_atual              = models.CharField(max_length=20,blank=True)
     status                  = models.CharField(max_length=20,blank=True)
-    
+class CadMotivoParada(models.Model):
+    motivo                  = models.CharField(max_length=40,blank=True)

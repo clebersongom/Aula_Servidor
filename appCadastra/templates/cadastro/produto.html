@@ -1,0 +1,79 @@
+
+
+
+
+<!--fim-->
+<div class="row">
+    <form method="post" action="{%url 'app_cadastro'%}" class="row g-3">         
+        {% csrf_token %}     
+        <div class="row">
+            <div class="col-sm-2 ">                     
+            <input type="text" class="form-control " placeholder="Número OP" name="cad_op">
+            </div>
+            <div class="col-md-4">
+                <select id="inputState" class="form-select" name="cad_fornecedor">
+                    <option selected>Fornecedor</option>
+                    <option>FG madeiras</option>
+                    <option>madeiras top</option>
+                    <option>comando madeiras</option>
+                    <option>madeiras real</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select id="inputState" class="form-select" name="cad_Largura">
+                    <option selected>Largura da capa</option>
+                    <option>115 X 250</option>
+                    <option>090 X 130</option>
+                    <option>200 X 230</option>
+                    <option>150 X 160</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select id="inputState" class="form-select" name="cad_comprimento">
+                    <option selected>Comprim. da capa</option>
+                    <option>115 X 250</option>
+                    <option>090 X 130</option>
+                    <option>200 X 230</option>
+                    <option>150 X 160</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select id="inputState" class="form-select" name="cad_espessura">
+                    <option selected>Espessura da capa</option>
+                    <option>1.5mm</option>
+                    <option>0.8mm</option>
+                    <option>2.3mm</option>
+                    <option>1.0mm</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Quantidade produção" name="cad_producao">
+            </div>
+            <div class="col-md-4">
+                <select id="inputState" class="form-select" name="cad_qualidade">
+                    <option selected>Qualidade da capa</option>
+                    <option>Miolo</option>
+                    <option>Padrão</option>                    
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select id="inputState" class="form-select" name="cad_prioridade">
+                    <option selected>Prioridade</option>
+                    <option>Urgente</option>
+                    <option>Alta</option>
+                    <option>Média</option>
+                    <option>Baixa</option>
+                </select>
+            </div>
+            <div>
+                <input type="hidden" name="hora_ini" value="null">
+                <input type="hidden" name="hora_fim" value="null">
+            </div>
+            <div class="col-lg">
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'appConsulta.apps.AppconsultaConfig',
     'appHome.apps.ApphomeConfig',
     'appProducao.apps.AppproducaoConfig',
+    'appMqtt.apps.AppmqttConfig',
     
 ]
 

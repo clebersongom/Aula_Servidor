@@ -40,8 +40,17 @@
                       <form action="{% url 'editaJustificativa' %}" method="POST">   
                         {% csrf_token %}
                         <div class="card-header">
-                            OP {{edit.op}}
-                        </div>                        
+                            OP {{edit.op}}                            
+                        </div>  
+                        <div>
+                          <select class="form-control" name="motivo">
+                                <option>Selecione</option>
+                            {% for motivo in motivos %}
+                            
+                                <option>{{motivo.motivo}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>                      
                             <div class="card-body ">
                                 Parada
                             <div class="card-title "> {{edit.data_parada}}</div>

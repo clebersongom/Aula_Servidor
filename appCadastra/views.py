@@ -2,11 +2,12 @@ from asyncio.windows_events import NULL
 from xmlrpc.client import DateTime
 from django.shortcuts import render, redirect
 from appCadastra.models import CadastroOp
+from appCadastra.models import CadMotivoParada
 from appProducao.models import ProducaoOnLine
 from appProducao.models import MaquinaParada
 from django.db.models import Q
-from datetime import datetime
-
+from datetime import datetime 
+from appCadastra.models import CadMotivoParada
 
 
 def index(request):
@@ -80,7 +81,7 @@ def editarOP(request):
         op = request.POST['editar']
         consulta = CadastroOp.objects.filter(numero_op = op)
         #return redirect('app_cadastro')
-        return render(request, 'cadastro/index.html',{'consulta': consulta})
+        return render(request, 'cadastro/consulta.html',{'consulta': consulta})
 def atualizarOP(request):   
     if request.method == 'POST':
         op          = request.POST['edit_op']
@@ -104,7 +105,7 @@ def atualizarOP(request):
                 status              = status,
                 )
             atualiza_sucess = True
-            return render(request, 'cadastro/index.html',{'consulta': consulta, 'atualiza_sucess' : atualiza_sucess})
+            return render(request, 'cadastro/consulta.html',{'consulta': consulta, 'atualiza_sucess' : atualiza_sucess})
     return redirect('app_cadastro')  
 
 def cancelarOP(request):     
@@ -116,11 +117,11 @@ def cancelarOP(request):
             consulta.update(status = 'cancelado')
             cancelado_sucess = True
             opsCadastradas = CadastroOp.objects.filter(~Q(status = 'cancelado'))
-            return render(request, 'cadastro/index.html',{'opsCadastradas': opsCadastradas,'cancelado_sucess':cancelado_sucess})
+            return render(request, 'cadastro/consulta.html',{'opsCadastradas': opsCadastradas,'cancelado_sucess':cancelado_sucess})
         else:
-            return redirect('app_cadastro') 
+            return redirect('consultaOP') 
     
-    return redirect('app_cadastro')
+    return redirect('consultaOP')
         
 def producaoOP(request):
     consulta_prod = ProducaoOnLine.objects.all()
@@ -148,7 +149,9 @@ def justificaParada(request):
         for op in op_producao:
             if op.numero_op:
                 cons_justifica = MaquinaParada.objects.filter(Q(status = 'producao'),~Q(data_parada = '1000-01-01 00:00:00.000000'),~Q(data_retorno = '1000-01-01 00:00:00.000000'),Q(justificativa = ''), Q(op = op.numero_op))# condicional da OP igual da produção
-                return render(request,'cadastro/justifica.html',{'cons_justifica': cons_justifica})
+                motivos        = CadMotivoParada.objects.all()
+                
+                return render(request,'cadastro/justifica.html',{'cons_justifica': cons_justifica,'motivos': motivos})
             else:
                 return render(request,'cadastro/justifica.html')  
         else:
@@ -159,10 +162,56 @@ def justificaParada(request):
 def editaJustificativa(request):
     if request.method == 'POST':       
         id            = request.POST['id'] 
-        just          = request.POST['edit_just'] 
-        consjustifica = MaquinaParada.objects.filter(Q(id = id)).update(justificativa = just)# condicional da OP igual da produção
+        just          = request.POST['edit_just'] # criar mais um campo que aceite null na tabela para just (outros)
+        motivo        = request.POST['motivo'] 
+        consjustifica = MaquinaParada.objects.filter(Q(id = id)).update(justificativa = motivo)# condicional da OP igual da produção
         
         cons_justifica = MaquinaParada.objects.filter(Q(status = 'producao'),~Q(data_parada = '1000-01-01 00:00:00.000000'),~Q(data_retorno = '1000-01-01 00:00:00.000000'),Q(justificativa = ''))# condicional da OP igual da produção
         
+        motivos        = CadMotivoParada.objects.all()
+        return render(request,'cadastro/justifica.html',{'cons_justifica': cons_justifica,'motivos': motivos })
+
+def cad_produto(request):    
+    return render(request, 'cadastro/produto.html')
+
+def consultaOP(request):
+    if request.method == 'POST':
+        op          = request.POST['pesqOP']
+        consultaOP = CadastroOp.objects.filter(numero_op = op)
+        if consultaOP and consultaOP!='':
+            print('entrou')
+            return render(request, 'cadastro/consulta.html', {'consultaOP' : consultaOP })
+        else:
+            semOP = True
+            return render(request, 'cadastro/consulta.html',{'semOP' : semOP})   
+    opsCadastradas = CadastroOp.objects.filter(~Q(status = 'cancelado'))#consultando OPs cadastradas no banco e enviando para o template
+    
+    return render(request, 'cadastro/consulta.html',{'opsCadastradas': opsCadastradas})
+
+def pesqOP(request):
+    if request.method == 'POST':
+        op          = request.POST['pesqOP']
+        consultaOP = CadastroOp.objects.filter(numero_op = op)
+        if consultaOP and consultaOP!='':
+            print('entrou')
+            return render(request, 'cadastro/index.html', {'consultaOP' : consultaOP })
+        else:
+            semOP = True
+            return render(request, 'cadastro/index.html',{'semOP' : semOP}) 
+def pag_parada(request):
+    return render(request, 'cadastro/cad_paradas.html')
+      
+def cadastro_paradas(request):
+    if request.method =='POST':
+        cad = request.POST['cad_parada']
+        motivo_parada = CadMotivoParada(
+            motivo = cad
+        )
+
+        motivo_parada.save()
+        mens = True
+        return render(request, 'cadastro/cad_paradas.html', {'mens' : mens})
         
-        return render(request,'cadastro/justifica.html',{'cons_justifica': cons_justifica})
+    return render(request, 'cadastro/cad_paradas.html')
+    
+

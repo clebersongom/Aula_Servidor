@@ -4,7 +4,7 @@
     <head>
       <meta charset='utf-8'>
       <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-      <title>Page Title</title>
+      <title>AdaVision</title>
       <meta name='viewport' content='width=device-width, initial-scale=1'>
       <link rel='stylesheet' type='text/css' media='screen' href='main.css'>    
       <script src="{%static 'js/bootstrap.min.js'  %}"></script>
@@ -40,25 +40,26 @@
             console.log(ajax)
         }
       </script>
-      <script>
-        function op_parada(){
-          let ajax = new XMLHttpRequest();
-            ajax.open('GET', 'cadastro/op_paradas/')
-            ajax.onreadystatechange = function(){
-              if(ajax.readyState == 4 && ajax.status ==200){
-                  document.getElementById('op_paradas').innerHTML =  ajax.responseText
-                }
-              
+  <script>
+    function op_parada(){
+      let ajax = new XMLHttpRequest();
+        ajax.open('GET', 'cadastro/op_paradas/')
+        ajax.onreadystatechange = function(){
+          if(ajax.readyState == 4 && ajax.status ==200){
+              document.getElementById('op_paradas').innerHTML =  ajax.responseText
             }
-            ajax.send()
-            console.log(ajax)
+          
         }
-      </script>
-      
-      
+        ajax.send()
+        console.log(ajax)
+    }
+  </script>
+
+
+</script>
     </head>
     <body ><!--style="height: 100px; background-color: rgba(0,0,0,0);"-->
-      <div class="container">
+      <div >
         
         <ul class="nav nav-tabs nav-fill">
             <li class="nav-item">
@@ -74,12 +75,10 @@
               <a class="nav-link" style="color: rgb(255, 255, 255);" href="{%url 'app_atualiza'%}">Atualiza</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" style="color: rgb(255, 255, 255);" >Versão 4.4</a>
+              <a onclick="consultaOP();" class="nav-link" style="color: rgb(255, 255, 255);" >Versão 4.5</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" style="color: rgb(255, 255, 255);" onclick="maq_parada()">atualizar</a>
-              <!--{%url 'producaoOP'%}-->
-            </li>
+            
+            
           </ul>
       </div>
       <script>
@@ -100,8 +99,6 @@
       {%block 'conteudo'%}
       
       {%endblock%}
-
-      
 
        <!-- Bootstrap core JavaScript -->
   <script src="{% static 'js/jquery.slim.min.js'%}"></script>

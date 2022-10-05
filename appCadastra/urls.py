@@ -14,6 +14,11 @@ urlpatterns = [ # em minusculo
     path('producaoOP/', views.producaoOP, name="producaoOP"),
     path('paradasOP/', views.paradasOP, name="paradasOP"),
     path('justificaParada/',views.justificaParada, name='justificaParada'),
-    path('editaJustificativa/',views.editaJustificativa, name='editaJustificativa')
+    path('editaJustificativa/',views.editaJustificativa, name='editaJustificativa'),
+    path('cad_produto/',views.cad_produto, name='cad_produto'),
+    path('consultaOP/', views.consultaOP, name ='consultaOP'),
+    path('pesqOP/', views.pesqOP, name ="pesquisaOP"),
+    path('pag_parada/', views.pag_parada, name ="pag_parada"),
+    path('cadastro_paradas/', views.cadastro_paradas, name ="cadastro_paradas")
     
 ]

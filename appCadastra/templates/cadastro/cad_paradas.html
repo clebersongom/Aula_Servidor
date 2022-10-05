@@ -1,0 +1,30 @@
+{%extends 'base.html'%} 
+
+{%block 'conteudo'%}
+<!--inicio-->
+
+{% include "menu.html" %}
+<div class="col ">
+    <form action="{% url 'cadastro_paradas' %}" method="POST">
+        {% csrf_token %}   
+        <div class="col-3">
+            <label  style="color:rgb(253, 253, 253);">Cadastro de motivos de paradas</label>            
+        </div>
+        <div class="col-3">            
+            <input type="text" class="form-control"  placeholder="Cadastro de paradas" name="cad_parada">
+        </div>
+            <div class="col-3">
+            <button type="submit" class="btn btn-primary mb-3">Cadastrar</button>
+        </div>
+    </form>
+</div>
+<div>
+    {% if mens %}
+    <div class="alert alert-success" role="alert">
+        Cadastro realizado com sucesso
+      </div>
+
+    {% endif %}
+</div>
+
+{%endblock%}

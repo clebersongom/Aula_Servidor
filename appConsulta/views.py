@@ -6,7 +6,7 @@ def index(request):
 
 
 
-def pesqOP(request):
+"""def pesqOP(request):
     if request.method == 'POST':
         op          = request.POST['pesqOP']
         consultaOP = CadastroOp.objects.filter(numero_op = op)
@@ -15,7 +15,7 @@ def pesqOP(request):
             return render(request, 'cadastro/index.html', {'consultaOP' : consultaOP })
         else:
             semOP = True
-            return render(request, 'cadastro/index.html',{'semOP' : semOP})
+            return render(request, 'cadastro/index.html',{'semOP' : semOP})"""
            
 
     

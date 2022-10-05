@@ -1,366 +1,96 @@
 {%extends 'base.html'%} 
 
 {%block 'conteudo'%}
-    
-<div class="container p-5">    
-    <form method="post" action="{%url 'app_cadastro'%}" class="row g-3">         
-        {% csrf_token %}     
-       <div class="row">
-            <div class="col-sm-2 ">                     
-            <input type="text" class="form-control " placeholder="Número OP" name="cad_op">
-            </div>
-            <div class="col-md-4">
-                <select id="inputState" class="form-select" name="cad_fornecedor">
-                    <option selected>Fornecedor</option>
-                    <option>FG madeiras</option>
-                    <option>madeiras top</option>
-                    <option>comando madeiras</option>
-                    <option>madeiras real</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <select id="inputState" class="form-select" name="cad_Largura">
-                    <option selected>Largura da capa</option>
-                    <option>115 X 250</option>
-                    <option>090 X 130</option>
-                    <option>200 X 230</option>
-                    <option>150 X 160</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <select id="inputState" class="form-select" name="cad_comprimento">
-                    <option selected>Comprim. da capa</option>
-                    <option>115 X 250</option>
-                    <option>090 X 130</option>
-                    <option>200 X 230</option>
-                    <option>150 X 160</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <select id="inputState" class="form-select" name="cad_espessura">
-                    <option selected>Espessura da capa</option>
-                    <option>1.5mm</option>
-                    <option>0.8mm</option>
-                    <option>2.3mm</option>
-                    <option>1.0mm</option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2">
-            <input type="text" class="form-control" placeholder="Quantidade produção" name="cad_producao">
-            </div>
-            <div class="col-md-4">
-                <select id="inputState" class="form-select" name="cad_qualidade">
-                    <option selected>Qualidade da capa</option>
-                    <option>Miolo</option>
-                    <option>Padrão</option>                    
-                </select>
-            </div>
-            <div class="col-md-2">
-                <select id="inputState" class="form-select" name="cad_prioridade">
-                    <option selected>Prioridade</option>
-                    <option>Urgente</option>
-                    <option>Alta</option>
-                    <option>Média</option>
-                    <option>Baixa</option>
+<!--inicio-->
+
+{% include "menu.html" %}
+
+    <!-- cadastro-->
+    <div class="row">
+      <div style="color: white;">Cadastro de fornecedores</div>
+      <form method="post" action="{%url 'app_cadastro'%}" class="row g-3">         
+          {% csrf_token %}     
+          <div class="row">
+              <div class="col-sm-2 ">                     
+              <input type="text" class="form-control " placeholder="Número OP" name="cad_op">
+              </div>
+              <div class="col-md-4">
+                  <select id="inputState" class="form-select" name="cad_fornecedor">
+                      <option selected>Fornecedor</option>
+                      <option>FG madeiras</option>
+                      <option>madeiras top</option>
+                      <option>comando madeiras</option>
+                      <option>madeiras real</option>
                   </select>
-            </div>
-            <div>
-                <input type="hidden" name="hora_ini" value="null">
-                <input type="hidden" name="hora_fim" value="null">
-            </div>
-            <div class="col-lg">
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
-            </div>
-        </div>
-    </form>
-</div>
-
-<div class="container"> 
-    {% if semOP %}    
-    <div class="alert alert-danger" role="alert">
-        <p class="text-center">OP não existe</p>
-        
-    </div> 
-    {% endif %} 
-    {% if mensagem %}    
-    <div class="alert alert-danger" role="alert">
-        <p class="text-center">OP não pode ser cadastrado! Já existe no banco de dados ou número da OP está vazio</p>
-        
-    </div> 
-    {% endif %}    
-    {% if atualiza_sucess %}    
-    <div class="alert alert-success " role="alert">
-        <p class="text-center"> Atualização realizado com sucesso</p>
-    </div> 
-    {% endif %} 
-    {% if cadastra_sucess %}    
-    <div class="alert alert-success " role="alert">
-        <p class="text-center"> Cadastro realizado com sucesso</p>
-    </div> 
-    {% endif %} 
-    {% if cancelado_sucess %}    
-    <div class="alert alert-success " role="alert">
-        <p class="text-center"> OP cancelado com sucesso</p>
-    </div> 
-    {% endif %}  
-
-    <!--Inicio Campo consulta-->
-
-    <div>
-        <div class="row">
-            <div class="col-3">
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        Pesquisa detalhada
-                </button>
-            </div> 
-                <div class="col-2">
-                    <form action="{% url 'pesquisaOP' %}" method="POST">
-                    {% csrf_token %}    
-                    <input  class="form-control mr-sm-2" type="search" placeholder="Pesquisar Op's" aria-label="Pesquisar" name="pesqOP">
-                </div>  
-                <div class="col-2">
-                    <button  class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-                    </form> 
-                </div>
-        </div> 
-        </p>
-        <div class="collapse" id="collapseExample">
-          <div class="card card-body">
-                <div class="row">
-                    <div class="col-3">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Op's cadastradas</option>
-                            <option value="1">Op's paradas</option>
-                            <option value="2">Op's canceladas</option>
-                            <option value="3">Op em produção</option>
-                        </select> 
-                    </div>
-                    <div class="col-3">
-                        <input type="date" class="form-control" style="margin-right: 10px;">
-                    </div>
-                    <div class="col-3">
-                        <input type="date" class="form-control" style="margin-right: 10px;">
-                    </div>
-                    <div class="col-3">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-                    </div>
-                </div>
+              </div>
+              <div class="col-md-2">
+                  <select id="inputState" class="form-select" name="cad_Largura">
+                      <option selected>Largura da capa</option>
+                      <option>115 X 250</option>
+                      <option>090 X 130</option>
+                      <option>200 X 230</option>
+                      <option>150 X 160</option>
+                  </select>
+              </div>
+              <div class="col-md-2">
+                  <select id="inputState" class="form-select" name="cad_comprimento">
+                      <option selected>Comprim. da capa</option>
+                      <option>115 X 250</option>
+                      <option>090 X 130</option>
+                      <option>200 X 230</option>
+                      <option>150 X 160</option>
+                  </select>
+              </div>
+              <div class="col-md-2">
+                  <select id="inputState" class="form-select" name="cad_espessura">
+                      <option selected>Espessura da capa</option>
+                      <option>1.5mm</option>
+                      <option>0.8mm</option>
+                      <option>2.3mm</option>
+                      <option>1.0mm</option>
+                  </select>
+              </div>
           </div>
-        </div>
-        
-                         
+          <div class="row">
+              <div class="col-md-2">
+              <input type="text" class="form-control" placeholder="Quantidade produção" name="cad_producao">
+              </div>
+              <div class="col-md-4">
+                  <select id="inputState" class="form-select" name="cad_qualidade">
+                      <option selected>Qualidade da capa</option>
+                      <option>Miolo</option>
+                      <option>Padrão</option>                    
+                  </select>
+              </div>
+              <div class="col-md-2">
+                  <select id="inputState" class="form-select" name="cad_prioridade">
+                      <option selected>Prioridade</option>
+                      <option>Urgente</option>
+                      <option>Alta</option>
+                      <option>Média</option>
+                      <option>Baixa</option>
+                  </select>
+              </div>
+              <div>
+                  <input type="hidden" name="hora_ini" value="null">
+                  <input type="hidden" name="hora_fim" value="null">
+              </div>
+              <div class="col-lg">
+                  <button type="submit" class="btn btn-primary">Cadastrar</button>
+              </div>
+          </div>
+      </form>
     </div>
+  
 
-    <!--Fim Campo consulta-->
+ 
 
-    <div>
-        <table class="table table-dark">
-            <thead >
-                <tr>
-                  <th scope="col">OP número</th>
-                  <th scope="col">Fornecedor</th>
-                  <th scope="col">Largura</th>   
-                  <th scope="col">Comprimento</th> 
-                  <th scope="col">Espessura</th>
-                  <th scope="col">Qualidade</th>
-                  <th scope="col">Quantidade</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">      </th>  
-                  <th scope="col">      </th>          
-                </tr>
-            </thead>
-    {% if consultaOP %}        
-            {% for consOP in  consultaOP %}
-                <tbody>
-                    <tr>
-                        <td scope="row">
-                            {{ consOP.numero_op}}
-                        </td>
-                        <td scope="row">
-                            {{ consOP.fornecedor}}
-                        </td>
-                        <td scope="row">
-                            {{ consOP.largura_capa }}
-                        </td>
-                        <td scope="row">
-                            {{ consOP.comprimento_capa }}
-                        </td>
-                        <td scope="row">
-                            {{ consOP.expessura_capa }}
-                        </td>
-                        <td scope="row">
-                            {{ consOP.qualidade_capa }}
-                        </td>
-                        <td scope="row">
-                            {{ consOP.quantidade_producao }}
-                        </td>  
-                        <td scope="row">
-                            {{ consOP.status }}
-                        </td>
-                        <td scope="row">
-                            <form action="{% url 'editarOP' %}" method="POST">   
-                                {% csrf_token %} 
-                                <input type="hidden" name="editar" value={{consOP.numero_op}}>
-                                <button type="submit" class="btn btn-info" >Editar</button>
-                            </form>
-                        </td>   
-                        <td scope="row">
-                            <form action="{% url 'cancelarOP' %}" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" name="cancelarOP" value='{{op.numero_op}}'>
-                                
-                                <!--inicio modal-->
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
-                                    Cancelar
-                                </button>
-                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">CANCELAR OP</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        </div>
-                                        <div class="modal-body alert alert-warning">
-                                            Tem certeza que deseja cancelar essa OP                            
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                                            <button type="submit" class="btn btn-primary" value="Sim">sim</button>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                              <!--Fim modal-->
-                            </form>
-                        </td>           
-                    </tr>
-                </tbody>
-
-            {% endfor %}
-    {% endif %}        
-            
-    {% for op in opsCadastradas %}
-        <tbody>
-            <tr>	
-                <td scope="row">
-                    {{ op.numero_op}}
-                </td>	
-                <td scope="row">
-                    {{ op.fornecedor}}
-                </td>
-                <td scope="row">
-                    {{ op.largura_capa }}
-                </td>
-                <td scope="row">
-                    {{ op.comprimento_capa }}
-                </td>
-                <td scope="row">
-                    {{ op.expessura_capa }}
-                </td>
-                <td scope="row">
-                    {{ op.qualidade_capa }}
-                </td>
-                <td scope="row">
-                    {{ op.quantidade_producao }}
-                </td>  
-                <td scope="row">
-                    {{ op.status }}
-                </td>              
-                <td scope="row">
-                    <form action="{% url 'editarOP' %}" method="POST">   
-                        {% csrf_token %} 
-                        <input type="hidden" name="editar" value={{op.numero_op}}>
-                        <button type="submit" class="btn btn-info" >Editar</button>
-                    </form>
-                </td>
-                <td scope="row">
-                    <form action="{% url 'cancelarOP' %}" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="cancelarOP" value='{{op.numero_op}}'>
-                        
-                        <!--inicio modal-->
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
-                            Cancelar
-                        </button>
-                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">CANCELAR OP</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                </div>
-                                <div class="modal-body alert alert-warning">
-                                    Tem certeza que deseja cancelar essa OP                            
-                                </div>
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                                <button type="submit" class="btn btn-primary" value="Sim">sim</button>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                      <!--Fim modal-->
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </div>
-    {% endfor %}
-    {% if consulta %}
-    <form action="{% url 'atualizarOP' %}" method="POST">
-        {% csrf_token %}
-        {% for editar in consulta %}
-        <tbody>
-            <tr>	
-                <td scope="row">
-                    <input class="form-control-plaintext" type="text" value="{{editar.numero_op}}" name="edit_op" readonly>
-                </td>
-                <td scope="row">
-                    <input class="form-control-plaintext" type="text" value="{{editar.fornecedor}}" name="edit_fornecedor">                    
-                </td>
-                <td scope="row">
-                    <input class="form-control-plaintext" type="text" value="{{editar.largura_capa}}" name="edit_largura">
-                    
-                </td>
-                <td scope="row">
-                    <input class="form-control-plaintext" type="text" value="{{editar.comprimento_capa}}" name="edit_comprimento">
-                    
-                </td>
-                <td scope="row">
-                    <input class="form-control-plaintext" type="text" value="{{editar.expessura_capa}}" name="edit_espessura">
-                    
-                </td>
-                <td scope="row">
-                    <input class="form-control-plaintext" type="text" value="{{editar.qualidade_capa}}" name="edit_qualidade">
-                    
-                </td>
-                <td scope="row">
-                    <input class="form-control-plaintext" type="text" value="{{editar.quantidade_producao}}" name="edit_producao">
-                    
-                </td>
-                <td scope="row">
-                    <input class="form-control-plaintext" type="text" value="{{editar.status}}" name="edit_status">
-                    
-                </td>
-                <td scope="row">                    
-                    <button type="submit" class="btn btn-success" >Atualizar</button>
-                </td>  
-                <td scope="row">
-                    <a href="{% url 'app_cadastro' %}" type="button" class="btn btn-info ">Voltar</a>
-                </td>     
-            </tr>
-        </tbody>  
-    </form>
-        {% endfor %}
-    {% endif %}
+    
 
 </div>
+
 
 
 {%endblock%}
+<!-- Bootstrap core JavaScript -->
+
