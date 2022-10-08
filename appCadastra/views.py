@@ -1,8 +1,13 @@
+from ast import Not
 from asyncio.windows_events import NULL
+import email
+from itertools import pairwise
 from xmlrpc.client import DateTime
 from django.shortcuts import render, redirect
 from appCadastra.models import CadastroOp
+from appCadastra.models import CadFornecedor
 from appCadastra.models import CadMotivoParada
+from appCadastra.models import CadProduto
 from appProducao.models import ProducaoOnLine
 from appProducao.models import MaquinaParada
 from django.db.models import Q
@@ -164,7 +169,7 @@ def editaJustificativa(request):
         id            = request.POST['id'] 
         just          = request.POST['edit_just'] # criar mais um campo que aceite null na tabela para just (outros)
         motivo        = request.POST['motivo'] 
-        consjustifica = MaquinaParada.objects.filter(Q(id = id)).update(justificativa = motivo)# condicional da OP igual da produção
+        consjustifica = MaquinaParada.objects.filter(Q(id = id)).update(justificativa = motivo,observacao  = just)# condicional da OP igual da produção
         
         cons_justifica = MaquinaParada.objects.filter(Q(status = 'producao'),~Q(data_parada = '1000-01-01 00:00:00.000000'),~Q(data_retorno = '1000-01-01 00:00:00.000000'),Q(justificativa = ''))# condicional da OP igual da produção
         
@@ -205,7 +210,7 @@ def cadastro_paradas(request):
     if request.method =='POST':
         cad = request.POST['cad_parada']
         motivo_parada = CadMotivoParada(
-            motivo = cad
+            motivo      = cad            
         )
 
         motivo_parada.save()
@@ -213,5 +218,56 @@ def cadastro_paradas(request):
         return render(request, 'cadastro/cad_paradas.html', {'mens' : mens})
         
     return render(request, 'cadastro/cad_paradas.html')
+    
+def cad_fornecedor(request):
+    if not request.method == 'POST':
+        return render(request,'cadastro/fornecedor.html')
+    else:
+        cad_razao_social = request.POST['cad_razao_social']
+        cad_endereco     = request.POST['cad_endereco']
+        cad_telefone     = request.POST['cad_telefone']
+        cad_email        = request.POST['cad_email']
+        cad_cnpj         = request.POST['cad_cnpj']
+        cad_estado       = request.POST['cad_estado']
+        cad_pais         = request.POST['cad_pais']
+        cad_cep          = request.POST['cad_cep']
+        
+        cadastro = CadFornecedor(
+            razao_social = cad_razao_social,
+            endereco     = cad_endereco,
+            telefone     = cad_telefone,
+            email        = cad_email,
+            cnpj         = cad_cnpj,
+            estado       = cad_estado,
+            pais         = cad_pais,
+            cep          = cad_cep
+        )
+        cadastro.save()
+        mens = True
+        return render(request,'cadastro/fornecedor.html',{'mens':mens})
+
+def cad_produto(request):
+    if not request.method == 'POST':  
+        return render(request,'cadastro/cad_produto.html')        
+    else:
+        fornecedor          = request.POST['fornecedor']
+        cad_comp_tora       = request.POST['cad_comp_tora']
+        cad_larg_capa       = request.POST['cad_larg_capa']
+        cad_comp_capa       = request.POST['cad_comp_capa']
+        cad_espess_capa     = request.POST['cad_espess_capa']
+        cad_qualidade_capa  = request.POST['cad_qualidade_capa']
+        cadastrar_prod = CadProduto(
+            fornecedor              = fornecedor,   
+            comprimento_tora        = cad_larg_capa,
+            largura_capa            = cad_comp_tora,
+            comprimento_capa        = cad_comp_capa,
+            espessura_capa          = cad_espess_capa,
+            qualidade_capa          = cad_qualidade_capa
+        ) 
+        cadastrar_prod.save()
+        mens = True
+        return render(request,'cadastro/cad_produto.html',{'mens':mens})
+        
+
     
 

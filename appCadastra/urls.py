@@ -19,6 +19,8 @@ urlpatterns = [ # em minusculo
     path('consultaOP/', views.consultaOP, name ='consultaOP'),
     path('pesqOP/', views.pesqOP, name ="pesquisaOP"),
     path('pag_parada/', views.pag_parada, name ="pag_parada"),
-    path('cadastro_paradas/', views.cadastro_paradas, name ="cadastro_paradas")
+    path('cadastro_paradas/', views.cadastro_paradas, name ="cadastro_paradas"),
+    path('cad_fornecedor/', views.cad_fornecedor, name ="cad_fornecedor"),
+    path('cad_produto/', views.cad_produto, name ="cad_produto")
     
 ]

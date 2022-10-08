@@ -1,0 +1,50 @@
+{%extends 'base.html'%} 
+
+{%block 'conteudo'%}
+<!--inicio-->
+
+{% include "menu.html" %}
+
+    <!-- cadastro-->
+    <div class="row">
+        <form class="row" action="{% url 'cad_produto' %}" method="POST">
+            {% csrf_token %}
+            <div class="col-md-3">
+              <label class="form-label" style="color: white;" >Fornecedor</label>
+              <input type="text" class="form-control" placeholder="Digite aqui Fornecedor" name="fornecedor">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label" style="color: white;">Comprimento tora</label>
+                <input type="text" class="form-control" placeholder="Digite aqui Comprimento tora" name="cad_comp_tora">
+            </div>
+            <div class="col-3">
+                <label class="form-label" style="color: white;">Largura capa</label>
+                <input type="text" class="form-control" placeholder="Digite aqui Largura capa" name="cad_larg_capa">
+            </div>
+            <div class="col-3">
+                <label class="form-label" style="color: white;">Comprimento capa</label>
+                <input type="text" class="form-control" placeholder="Digite aqui Comprimento capa" name="cad_comp_capa">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label" style="color: white;">Espessura capa</label>
+                <input type="text" class="form-control" placeholder="Digite aqui Espessura capa" name="cad_espess_capa">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" style="color: white;">Qualidade capa</label>
+              <input type="text" class="form-control" placeholder="Digite aqui Qualidade capa" name="cad_qualidade_capa">
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </div>
+          </form>
+    </div>
+    {% if mens %}
+        <div class="alert alert-success" role="alert">
+            Cadastro realizado com sucesso!
+        </div>
+    {% endif %}
+
+</div>
+{%endblock%}
+<!-- Bootstrap core JavaScript -->
+

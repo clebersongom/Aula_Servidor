@@ -1,0 +1,80 @@
+{%extends 'base.html'%} 
+
+{%block 'conteudo'%}
+<!--inicio-->
+
+{% include "menu.html" %}
+
+    <!-- cadastro-->
+    <div class="row">
+        <form class="row" action="{% url 'cad_fornecedor' %}" method="POST">
+            {% csrf_token %}
+            <div class="col-md-6">
+              <label class="form-label" style="color: white;" >Razão social</label>
+              <input type="text" class="form-control" placeholder="Digite aqui sua razão social" name="cad_razao_social">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" style="color: white;">Endereço</label>
+                <input type="text" class="form-control" placeholder="Digite aqui seu Endereço" name="cad_endereco">
+            </div>
+            <div class="col-6">
+                <label class="form-label" style="color: white;">Telefone</label>
+                <input type="text" class="form-control" placeholder="Digite aqui seu Telefone" name="cad_telefone">
+            </div>
+            <div class="col-6">
+                <label class="form-label" style="color: white;">E-mail</label>
+                <input type="text" class="form-control" placeholder="Digite aqui seu E-mail" name="cad_email">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label" style="color: white;">CNPJ</label>
+                <input type="text" class="form-control" placeholder="Digite aqui seu CNPJ" name="cad_cnpj">
+            </div>
+            <div class="col-md-4">
+              <label  class="form-label" style="color: white;">Estado</label>
+              <select class="form-select" name="cad_estado">
+                <option selected>Selecione...</option>
+                <option>PR</option>
+                <option>SC</option>
+                <option>RS</option>
+                <option>RJ</option>
+                <option>GO</option>
+                <option>SP</option>
+                <option>RN</option>
+                <option>MT</option>
+                <option>MS</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <label for="inputZip" class="form-label">País</label>
+              <label  class="form-label" style="color: white;">País</label>
+              <select class="form-select" name="cad_pais">                
+                <option selected>BRASIL</option>
+                <option>Outro</option>
+                
+              </select>
+            </div>
+            <div class="col-4">
+                <label class="form-label" style="color: white;">Cód. Postal</label>
+                <input type="text" class="form-control" placeholder="Digite aqui seu CEP" name="cad_cep">
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </div>
+          </form>
+    </div>
+    {% if mens %}
+        <div class="alert alert-success" role="alert">
+            Cadastro realizado com sucesso!
+        </div>
+    {% endif %}
+
+</div>
+
+
+
+
+
+
+{%endblock%}
+<!-- Bootstrap core JavaScript -->
+
