@@ -16,38 +16,42 @@
               </div>
               <div class="col-md-4">
                   <select id="inputState" class="form-select" name="cad_fornecedor">
-                      <option selected>Fornecedor</option>
-                      <option>FG madeiras</option>
-                      <option>madeiras top</option>
-                      <option>comando madeiras</option>
-                      <option>madeiras real</option>
+                    {% if fornecedor %}
+                        <option selected>Fornecedor...</option>
+                        {% for fornecedores in fornecedor %}
+                            <option>{{fornecedores.razao_social}}</option>
+                         {% endfor %}
+                  {% endif %}
                   </select>
               </div>
               <div class="col-md-2">
                   <select id="inputState" class="form-select" name="cad_Largura">
-                      <option selected>Largura da capa</option>
-                      <option>115 X 250</option>
-                      <option>090 X 130</option>
-                      <option>200 X 230</option>
-                      <option>150 X 160</option>
+                    {% if fornecedor %}
+                        <option selected>Largura Capa...</option>
+                        {% for produtos in produto %}
+                            <option>{{produtos.largura_capa}}mm</option>
+                        {% endfor %}
+                    {% endif %}
                   </select>
               </div>
               <div class="col-md-2">
                   <select id="inputState" class="form-select" name="cad_comprimento">
-                      <option selected>Comprim. da capa</option>
-                      <option>115 X 250</option>
-                      <option>090 X 130</option>
-                      <option>200 X 230</option>
-                      <option>150 X 160</option>
+                    {% if fornecedor %}
+                        <option selected>Comprimento Capa...</option>
+                        {% for produtos in produto %}
+                            <option>{{produtos.comprimento_capa}}mm</option>
+                        {% endfor %}
+                    {% endif %}
                   </select>
               </div>
               <div class="col-md-2">
                   <select id="inputState" class="form-select" name="cad_espessura">
-                      <option selected>Espessura da capa</option>
-                      <option>1.5mm</option>
-                      <option>0.8mm</option>
-                      <option>2.3mm</option>
-                      <option>1.0mm</option>
+                    {% if fornecedor %}
+                        <option selected>Espessura Capa...</option>
+                        {% for produtos in produto %}
+                            <option>{{produtos.espessura_capa}}mm</option>
+                        {% endfor %}
+                    {% endif %}
                   </select>
               </div>
           </div>
@@ -65,10 +69,8 @@
               <div class="col-md-2">
                   <select id="inputState" class="form-select" name="cad_prioridade">
                       <option selected>Prioridade</option>
-                      <option>Urgente</option>
-                      <option>Alta</option>
-                      <option>Média</option>
-                      <option>Baixa</option>
+                      <option>Urgente</option>                      
+                      <option>Normal</option>
                   </select>
               </div>
               <div>
@@ -81,7 +83,11 @@
           </div>
       </form>
     </div>
-  
+  {% if cadastra_sucess %}
+    <div class="alert alert-success" role="alert">
+        Cadastro realizado com sucesso!
+    </div>
+  {% endif %}
 
  
 

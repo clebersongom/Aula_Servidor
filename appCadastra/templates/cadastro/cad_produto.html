@@ -10,8 +10,15 @@
         <form class="row" action="{% url 'cad_produto' %}" method="POST">
             {% csrf_token %}
             <div class="col-md-3">
-              <label class="form-label" style="color: white;" >Fornecedor</label>
-              <input type="text" class="form-control" placeholder="Digite aqui Fornecedor" name="fornecedor">
+                <label class="form-label" style="color: white;">Fornecedor</label>
+                <select class="form-select" name="fornecedor">
+                    {% if fornecedor %}
+                        <option selected>Fornecedor...</option>
+                        {% for fornecedores in fornecedor %}
+                            <option>{{fornecedores.razao_social}}</option>
+                         {% endfor %}
+                  {% endif %}
+                  </select>
             </div>
             <div class="col-md-3">
                 <label class="form-label" style="color: white;">Comprimento tora</label>
@@ -30,8 +37,11 @@
                 <input type="text" class="form-control" placeholder="Digite aqui Espessura capa" name="cad_espess_capa">
             </div>
             <div class="col-md-3">
-              <label class="form-label" style="color: white;">Qualidade capa</label>
-              <input type="text" class="form-control" placeholder="Digite aqui Qualidade capa" name="cad_qualidade_capa">
+              <label class="form-label" style="color: white;">Qualidade capa</label>              
+              <select class="form-select" name="cad_qualidade_capa">
+                    <option>Miolo</option>
+                    <option>Inteira</option>
+              </select>
             </div>
             <div class="col-12">
               <button type="submit" class="btn btn-primary">Cadastrar</button>

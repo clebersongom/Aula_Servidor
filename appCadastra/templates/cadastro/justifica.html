@@ -43,13 +43,7 @@
                             OP {{edit.op}}                            
                         </div>  
                         <div>
-                          <select class="form-control" name="motivo">
-                                <option>Selecione</option>
-                            {% for motivo in motivos %}
-                            
-                                <option>{{motivo.motivo}}</option>
-                            {% endfor %}
-                          </select>
+                          
                         </div>                      
                             <div class="card-body ">
                                 Parada
@@ -58,9 +52,16 @@
                             <div class="card-title "> {{edit.data_retorno}}</div>
                             <div>
                                 <input type="hidden" value="{{edit.id}}" name="id">
-                                <input type="text" name="edit_just" style="height: 183px;" class="form-control" placeholder="Digite aqui a justificativa da parada"  >
+                                <input type="text" name="edit_just" style="height: 80px;" class="form-control" placeholder="Observações"  >
+                                <select class="form-control" name="motivo">
+                                  <option>Selecione</option>
+                                  {% for motivo in motivos %}                              
+                                  <option>{{motivo.motivo}}</option>
+                                  {% endfor %}
+                                </select>
                             </div>
                             <div>
+                              <hr/>
                                 <button class="btn btn-dark col-12" type="submit">Justificar</button>
                             </div>
                         </div>

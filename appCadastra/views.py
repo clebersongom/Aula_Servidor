@@ -2,6 +2,7 @@ from ast import Not
 from asyncio.windows_events import NULL
 import email
 from itertools import pairwise
+from turtle import update
 from xmlrpc.client import DateTime
 from django.shortcuts import render, redirect
 from appCadastra.models import CadastroOp
@@ -42,14 +43,18 @@ def index(request):
             cadastrar.save()
             cadastra_sucess = True
             opsCadastradas = CadastroOp.objects.filter(~Q(status = 'cancelado'))
-            return render(request, 'cadastro/index.html',{'opsCadastradas': opsCadastradas, 'cadastra_sucess' : cadastra_sucess})
+            fornecedor = CadFornecedor.objects.all()  
+            produto    = CadProduto.objects.all() 
+            return render(request, 'cadastro/index.html',{'opsCadastradas': opsCadastradas, 'cadastra_sucess' : cadastra_sucess,'fornecedor': fornecedor,'produto':produto})
         else:
             mensagem = True # gera a mensagem de erro quando OP já está cadastrada no sistema
             opsCadastradas = CadastroOp.objects.filter(~Q(status = 'cancelado'))
             return render(request, 'cadastro/index.html',{'opsCadastradas': opsCadastradas,'mensagem':mensagem})
-          
-    opsCadastradas = CadastroOp.objects.filter(~Q(status = 'cancelado'))#consultando OPs cadastradas no banco e enviando para o template
-    return render(request, 'cadastro/index.html',{'opsCadastradas': opsCadastradas})
+    else:  
+        fornecedor = CadFornecedor.objects.all()  
+        produto    = CadProduto.objects.all() 
+        opsCadastradas = CadastroOp.objects.filter(~Q(status = 'cancelado'))#consultando OPs cadastradas no banco e enviando para o template
+        return render(request, 'cadastro/index.html',{'opsCadastradas': opsCadastradas, 'fornecedor': fornecedor,'produto':produto})
 
 def para_op(request):
     if request.method == 'POST':        
@@ -129,8 +134,13 @@ def cancelarOP(request):
     return redirect('consultaOP')
         
 def producaoOP(request):
-    consulta_prod = ProducaoOnLine.objects.all()
-    return render(request,'cadastro/producao.html',{'consulta_prod':consulta_prod})
+    if request.method == "POST":
+        zerar = request.POST['zerar']
+        producao = ProducaoOnLine.objects.all().update(prod_online = zerar)               
+        return redirect('app_home')
+    else:
+        consulta_prod = ProducaoOnLine.objects.all()
+        return render(request,'cadastro/producao.html',{'consulta_prod':consulta_prod})
 
 def paradasOP(request):
     op_producao = CadastroOp.objects.filter(Q(status = 'producao'))
@@ -176,8 +186,8 @@ def editaJustificativa(request):
         motivos        = CadMotivoParada.objects.all()
         return render(request,'cadastro/justifica.html',{'cons_justifica': cons_justifica,'motivos': motivos })
 
-def cad_produto(request):    
-    return render(request, 'cadastro/produto.html')
+#def cad_produto(request):    
+    #return render(request, 'cadastro/produto.html')
 
 def consultaOP(request):
     if request.method == 'POST':
@@ -248,7 +258,8 @@ def cad_fornecedor(request):
 
 def cad_produto(request):
     if not request.method == 'POST':  
-        return render(request,'cadastro/cad_produto.html')        
+        fornecedor = CadFornecedor.objects.all() 
+        return render(request,'cadastro/cad_produto.html',{'fornecedor':fornecedor})        
     else:
         fornecedor          = request.POST['fornecedor']
         cad_comp_tora       = request.POST['cad_comp_tora']
@@ -266,7 +277,8 @@ def cad_produto(request):
         ) 
         cadastrar_prod.save()
         mens = True
-        return render(request,'cadastro/cad_produto.html',{'mens':mens})
+        fornecedor = CadFornecedor.objects.all() 
+        return render(request,'cadastro/cad_produto.html',{'mens':mens,'fornecedor':fornecedor})
         
 
     
