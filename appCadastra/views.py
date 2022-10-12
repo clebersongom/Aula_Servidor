@@ -75,14 +75,27 @@ def abre_Op_parada(request):
     if request.method == 'POST':
         consulta = CadastroOp.objects.filter(status = 'producao')
         
-        if not consulta:           
-            op = request.POST['op']
-            print(op)
+        if not consulta:   
+            prod_online = ProducaoOnLine.objects.filter(~Q(prod_online = 0)) 
+            if not prod_online: 
+                op = request.POST['op']
+                atualiza = CadastroOp.objects.filter(numero_op = op).update(status = 'producao')
+                atualiza_tab_paradas = MaquinaParada.objects.filter(op = op).update(status = 'producao')
+                op_aberta = CadastroOp.objects.filter(status = 'producao') # busca OP em produção
+                opsCadastradas = CadastroOp.objects.filter(Q(hora_inicio_prod = ''), ~Q(status = 'cancelado')) 
+                opsIniciadas = CadastroOp.objects.filter( Q(status = 'parado'), ~Q(hora_inicio_prod = '') )
+                return redirect('app_home')
+            else:    
+                op = request.POST['op']
+                atualiza = CadastroOp.objects.filter(numero_op = op).update(status = 'producao')
+                atualiza_tab_paradas = MaquinaParada.objects.filter(op = op).update(status = 'producao')
+                op_aberta = CadastroOp.objects.filter(status = 'producao') # busca OP em produção
+                opsCadastradas = CadastroOp.objects.filter(Q(hora_inicio_prod = ''), ~Q(status = 'cancelado')) 
+                opsIniciadas = CadastroOp.objects.filter( Q(status = 'parado'), ~Q(hora_inicio_prod = '') )# busca se diferente de '' 
+                prod_online = ProducaoOnLine.objects.filter(~Q(prod_online = 0))
+                return render(request, 'home/index.html',{'opsCadastradas': opsCadastradas,'opsIniciadas': opsIniciadas,'op_aberta':op_aberta,'prod_online':prod_online})
+                
             
-            atualiza = CadastroOp.objects.filter(numero_op = op).update(status = 'producao')
-            atualiza_tab_paradas = MaquinaParada.objects.filter(op = op).update(status = 'producao')
-            
-            return redirect('app_home')
         else:            
             return redirect('app_home')   
 
@@ -136,9 +149,9 @@ def cancelarOP(request):
 def producaoOP(request):
     if request.method == "POST":
         zerar = request.POST['zerar']
-        producao = ProducaoOnLine.objects.all().update(prod_online = zerar)               
+        producao = ProducaoOnLine.objects.all().update(prod_online = zerar)
         return redirect('app_home')
-    else:
+    else: # entra no laço a cada 3 segundos javaScript
         consulta_prod = ProducaoOnLine.objects.all()
         return render(request,'cadastro/producao.html',{'consulta_prod':consulta_prod})
 
