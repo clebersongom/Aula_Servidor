@@ -2,18 +2,26 @@ from ast import Not
 from asyncio.windows_events import NULL
 import email
 from itertools import pairwise
+from os import times
+from sqlite3 import Time, Timestamp
+from time import time
 from turtle import update
 from xmlrpc.client import DateTime
 from django.shortcuts import render, redirect
 from appCadastra.models import CadastroOp
 from appCadastra.models import CadFornecedor
 from appCadastra.models import CadMotivoParada
+from appCadastra.models import CadTurno
+from appCadastra.models import StatusOP
+from appCadastra.models import HoraHora
 from appCadastra.models import CadProduto
 from appProducao.models import ProducaoOnLine
 from appProducao.models import MaquinaParada
 from django.db.models import Q
 from datetime import datetime 
 from appCadastra.models import CadMotivoParada
+import time
+from appCadastra.models import HoraTabela
 
 
 def index(request):
@@ -292,7 +300,131 @@ def cad_produto(request):
         mens = True
         fornecedor = CadFornecedor.objects.all() 
         return render(request,'cadastro/cad_produto.html',{'mens':mens,'fornecedor':fornecedor})
+# Cadastro de hora inicial e final na tabela do banco de dados       
+def cad_horas_trab(request):
+    if not request.method == 'POST': 
+        return render(request,'cadastro/horas_trabalho.html')
+    else:
+        turno       = request.POST['turno']
+        hora1    = request.POST['hora1']
+        hora2    = request.POST['hora2']
+        hora3    = request.POST['hora3']
+        hora4    = request.POST['hora4']
+        hora5    = request.POST['hora5']
+        hora6    = request.POST['hora6']
+        hora7    = request.POST['hora7']
+        hora8    = request.POST['hora8']
+        hora9    = request.POST['hora9']
+        hora10   = request.POST['hora10']
+        hora11   = request.POST['hora11']
+        hora12   = request.POST['hora12']
+       
+        cad_turno = CadTurno(
+            turno           = turno,
+            hora1           = hora1,
+            hora2           = hora2,
+            hora3           = hora3,
+            hora4           = hora4,
+            hora5           = hora5,
+            hora6           = hora6,
+            hora7           = hora7,
+            hora8           = hora8,
+            hora9           = hora9,
+            hora10          = hora10,
+            hora11          = hora11,
+            hora12          = hora12
+        )
+        cad_turno.save()
+        mens = True
+        return render(request,'cadastro/horas_trabalho.html',{'mens' : mens})
+def hora_hora(request): 
+    hora = time.strftime("%H:%M")# pego hora e minuto 
+    data = time.strftime("%d/%m/%Y")
+    bc_hr  = CadTurno.objects.filter(
+    Q(hora1 = hora)|
+    Q(hora2 = hora)|
+    Q(hora3 = hora)|
+    Q(hora4 = hora)|
+    Q(hora5 = hora)|
+    Q(hora6 = hora)|
+    Q(hora7 = hora)|
+    Q(hora8 = hora)|
+    Q(hora9 = hora)|
+    Q(hora10 = hora)|
+    Q(hora11 = hora)|
+    Q(hora12 = hora)
+    )  
+    if not bc_hr: # se busca hora não obter resultado    
+        bc_turno = StatusOP.objects.filter(status = 'producao')   
+        for bc_t in bc_turno:
+            bc_t.turno_ini
+        busca_data  = HoraHora.objects.filter(Q(data = data),Q(turno = bc_t.turno_ini))# ***Criar uma tabela de status onde requer turno para inserir nessa consulta
+        if not busca_data: # se bausca data não encontrar data atual retorna página sem variável 
+            return render(request,'cadastro/hora_hora.html')
+        else:# se busca data existe retorna página váriavel com data atual           
+            return render(request,'cadastro/hora_hora.html',{'busca_data':busca_data})
+    else:                      
+        prod_online = ProducaoOnLine.objects.all()
+        for po in prod_online:
+            po.prod_online           
+        op_producao = CadastroOp.objects.filter(Q(status = 'producao'))
+        for op in op_producao:
+            op.numero_op
+        for valor in bc_hr:            
+            valor.turno           
+        HoraXHora = HoraHora( # salvar no HoraHora com turno, hora, produção e OP,HoraHora
+        op               = op.numero_op,
+        prod_online      = po.prod_online,     
+        data             = data,
+        hora             = hora,
+        turno            = valor.turno
+        )              
+        HoraXHora.save()   
+        busca_data  = HoraHora.objects.filter(Q(data = data),Q(turno = valor.turno))   
+        return render(request,'cadastro/hora_hora.html',{'busca_data':busca_data})  
         
 
-    
+    #return render(request,'cadastro/hora_hora.html')
+    """"
+    status = CadastroOp.objects.filter(Q(status = 'producao')) # consulta se tem OP em produção
+    if not status:        
+        return render(request,'cadastro/hora_hora.html')
+    else:  
+        data = time.strftime("%d/%m/%Y")
+        busca_data  = HoraHora.objects.filter(data = data) 
+        if not busca_data:           
+            return render(request,'cadastro/hora_hora.html')
+        else:
+            hora = time.strftime("%H:%M")# pego hora, minuto e segundo atuais
+            #busca_hora  = CadTurno.objects.all()     
+            for d in busca_data:
+                if  d.hora == hora:
+                    return render(request,'cadastro/hora_hora.html',{'busca_horahora':busca_data})
+                else:
+                    return render(request,'cadastro/hora_hora.html')"""
+
+    """else:
+        data = time.strftime("%d/%m/%Y") 
+        hora = time.strftime("%H:%M")# pego hora, minuto e segundo atuais
+        busca_hora  = CadTurno.objects.filter(hora1 = hora)       
+        prod_online = ProducaoOnLine.objects.all()
+        for po in prod_online:
+            po.prod_online           
+        op_producao = CadastroOp.objects.filter(Q(status = 'producao'))
+        for op in op_producao:
+            op.numero_op
+        for valor in busca_hora:            
+            valor.turno
+        #hora_anterior = HoraHora.objects.filter(turno = valor.turno).order_by('id').latest('id')
+        #obj = Model.objects.filter(testfield=12).order_by('id').latest('id')    
+        HoraXHora = HoraHora( # salvar no HoraHora com turno, hora, produção e OP,HoraHora
+            op               = op.numero_op,
+            prod_online      = po.prod_online,     
+            data             = data,
+            hora             = hora,
+            turno            = valor.turno
+            )              
+        HoraXHora.save()        
+        return render(request,'cadastro/hora_hora.html')"""
+        
 

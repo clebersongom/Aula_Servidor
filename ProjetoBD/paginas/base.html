@@ -54,9 +54,22 @@
         console.log(ajax)
     }
   </script>
-
-
+<script>
+  function hora_hora(){
+    let ajax = new XMLHttpRequest();
+      ajax.open('GET', 'cadastro/hora_hora/')
+      ajax.onreadystatechange = function(){
+        if(ajax.readyState == 4 && ajax.status ==200){
+            document.getElementById('hora_hora').innerHTML =  ajax.responseText
+          }
+        
+      }
+      ajax.send()
+      console.log(ajax)
+  }
 </script>
+
+
     </head>
     <body ><!--style="height: 100px; background-color: rgba(0,0,0,0);"-->
       <div >
@@ -75,26 +88,26 @@
               <a class="nav-link" style="color: rgb(255, 255, 255);" href="{%url 'app_atualiza'%}">Atualiza</a>
             </li>
             <li class="nav-item">
-              <a onclick="consultaOP();" class="nav-link" style="color: rgb(255, 255, 255);" >Versão 4.8</a>
-            </li>
-            
-            
-          </ul>
+              <a onclick=" hora_hora();" class="nav-link" style="color: rgb(255, 255, 255);" >Versão 4.9</a>
+            </li> 
+        </ul>
       </div>
-      <script>
-   
+      <script>   
         // Using IIFE
+       
         (function loop1() {
-           atualizar()  
-           maq_parada()                  
-            return setTimeout(loop1, 3000);
+          atualizar()  
+          maq_parada()
+          hora_hora()                 
+          return setTimeout(loop1, 10000);
         })();
         (function op_parada() {
           op_paradas()
           return setTimeout(op_parada, 3000);
         })();
         
-    </script>
+        
+      </script>
       
       {%block 'conteudo'%}
       

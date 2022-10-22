@@ -1,0 +1,110 @@
+{%extends 'base.html'%} 
+
+{%block 'conteudo'%}
+<!--inicio-->
+
+{% include "menu.html" %}
+
+    <!-- cadastro-->
+    <div class="row">
+        <form class="row" action="{% url 'cad_horas_trab' %}" method="POST">
+            {% csrf_token %}
+            <div class="col-2">
+                <label class="form-label" style="color: white;">Descrição do turno</label>
+                    <input type="text" class="form-control" placeholder="Digite aqui o nome do turno" name="turno">
+                <label class="form-label" style="color: white;">Horas de trabalho</label>
+                  <ol class="list-group ">
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                      <div class="ms-2 me-auto">  
+                        <input type="time" class="form-control" name="hora1">
+                      </div>
+                      <span class="badge bg-primary rounded-pill">Hora 01</span>
+                    </li>   
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">  
+                          <input type="time" class="form-control" name="hora2">
+                        </div>
+                        <span class="badge bg-primary rounded-pill">Hora 02</span>
+                      </li> 
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">  
+                          <input type="time" class="form-control" name="hora3">
+                        </div>
+                        <span class="badge bg-primary rounded-pill">Hora 03</span>
+                      </li>   
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">  
+                          <input type="time" class="form-control" name="hora4">
+                        </div>
+                        <span class="badge bg-primary rounded-pill">Hora 04</span>
+                      </li>   
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">  
+                          <input type="time" class="form-control" name="hora5">
+                        </div>
+                        <span class="badge bg-primary rounded-pill">Hora 05</span>
+                      </li>   
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">  
+                          <input type="time" class="form-control" name="hora6">
+                        </div>
+                        <span class="badge bg-primary rounded-pill">Hora 06</span>
+                      </li>   
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">  
+                          <input type="time" class="form-control" name="hora7">
+                        </div>
+                        <span class="badge bg-primary rounded-pill">Hora 07</span>
+                      </li>   
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">  
+                          <input type="time" class="form-control" name="hora8">
+                        </div>
+                        <span class="badge bg-primary rounded-pill">Hora 08</span>
+                      </li>   
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">  
+                          <input type="time" class="form-control" name="hora9">
+                        </div>
+                        <span class="badge bg-primary rounded-pill">Hora 09</span>
+                      </li>   
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">  
+                          <input type="time" class="form-control" name="hora10">
+                        </div>
+                        <span class="badge bg-primary rounded-pill">Hora 10</span>
+                      </li>   
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">  
+                          <input type="time" class="form-control" name="hora11">
+                        </div>
+                        <span class="badge bg-primary rounded-pill">Hora 11</span>
+                      </li>   
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">  
+                          <input type="time" class="form-control" name="hora12">
+                        </div>
+                        <span class="badge bg-primary rounded-pill">Hora 12</span>
+                      </li>
+                </ol>
+
+            </div>
+            <!--<div class="col-2">
+                <label class="form-label" style="color: white;">Hora final do trabalho</label>
+                <input type="time" class="form-control" name="hora_final">
+            </div>-->
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+    {% if mens %}
+        <div class="alert alert-success" role="alert">
+            Cadastro realizado com sucesso!
+        </div>
+    {% endif %}
+
+</div>
+{%endblock%}
+<!-- Bootstrap core JavaScript -->
+

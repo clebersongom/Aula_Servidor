@@ -27,14 +27,13 @@
                     <div class="row">
                         <div class="col">
                         <select class="form-control" id="exampleFormControlSelect2" name="abrir_op">
-                        {%if opsCadastradas%}   
-                            {% for op in opsCadastradas %}                                    
-                            <option >{{op.numero_op}}</option> 
-                            {% endfor %} 
-                            {%else%}
-                            <option >Sem Ops</option>
-                        {% endif %}   
-                                                            
+                            {%if opsCadastradas%}   
+                                {% for op in opsCadastradas %}                                    
+                                    <option >{{op.numero_op}}</option> 
+                                {% endfor %} 
+                                {%else%}
+                                    <option >Sem Ops</option>
+                            {% endif %}                      
                         </select>
                         </div>
                         <div class="col ">
@@ -253,58 +252,26 @@
                                 ABRIR {{opin.numero_op}}
                             </button>
                         </div>
-                    </div>
-                    
-                </form>
-            
+                    </div>                    
+                </form>            
             </div>
         </div>  
-                <div class="col-sm-6 col-lg-6 ">
-                    <div class="dash-unit bg-white text-dark" style="text-align:center">
-                        <dtitle>Gráfico Hora X Hora</dtitle>
-                        <hr>   
-                        <canvas id="line-chart" width="800" height="210"></canvas>   
-                        <script> 
-                            new Chart(document.getElementById("line-chart"), {
-                            type: 'line',
-                            data: {
-                              labels: [730,830,930,1030,1130,1230,1330,1430,1530,1630,1730],
-                              datasets: [{ 
-                                  data: [10,20,30,35,36,40,45,46,70,75,80], // utiliza o Json como variavel do gráfico
-                                  label: "Produção",
-                                  borderColor: "#3e95cd",
-                                  fill: false
-                                },
-                                 { 
-                                  data: [10,20,30,40,50,60,70,80,90,100,110],
-                                  label: "Meta",
-                                  borderColor: "#8e5ea2",
-                                  fill: false
-                                }
-                              ]
-                            },
-                            options: {
-                              title: {
-                                display: true,
-                                text: 'Gráfico de produção Hora X Hora'
-                              }
-                            }
-                          });
-                      </script>
-                    <br>
-                    </div>
+            <div class="col-6">
+                <div class="dash-unit bg-white"  id="hora_hora" >                        
+                    <!--Aqui Tabela Hora X Hora-->
                 </div>
-                <div class="col-sm-3 col-lg-3 ">
-                    <div class="dash-unit" style="text-align:center">
-                        <dtitle>Usuário</dtitle>
-                        <hr>      
-                    <h2>GRÁFICO DE BARRA </h2>   
-                    TEMPO PRODUÇÃO X MÁQUINA PARADA   
-                    <br>
-                        
-                    </div>
+            </div>
+            <div class="col-sm-3 col-lg-3 ">
+                <div class="dash-unit" style="text-align:center">
+                    <dtitle>Usuário</dtitle>
+                    <hr>      
+                <h2>GRÁFICO DE BARRA </h2>   
+                TEMPO PRODUÇÃO X MÁQUINA PARADA   
+                <br>
+                    
                 </div>
-            </div> 
+            </div>
+        </div> 
             <div class=" col-lg-12 " ><!--style="width: 500px; height: 900px;"-->
                 <!-- Bloco menor 1 -->
                 <div class=" col-lg-12 ">

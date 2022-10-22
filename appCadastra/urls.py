@@ -21,6 +21,7 @@ urlpatterns = [ # em minusculo
     path('pag_parada/', views.pag_parada, name ="pag_parada"),
     path('cadastro_paradas/', views.cadastro_paradas, name ="cadastro_paradas"),
     path('cad_fornecedor/', views.cad_fornecedor, name ="cad_fornecedor"),
-    #path('cad_produto/', views.cad_produto, name ="cad_produto")
+    path('cad_horas_trab/', views.cad_horas_trab, name ="cad_horas_trab"),
+    path('hora_hora/', views.hora_hora, name ="hora_hora")
     
 ]

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>    
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+    <body> 
+      
+        <table class="table table-striped" style="text-align:center">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">OP</th>
+                    <th scope="col">Turno</th>
+                    <th scope="col">Produção</th>
+                    <th scope="col">Meta</th> 
+                    <th>Hora X Hora</th>
+                                         
+            </thead>
+            <tbody>
+                
+                {% for horaXhora in busca_data %}
+                <tr>
+                    <td>{{horaXhora.op}}</td>
+                    <td>{{horaXhora.turno}}</td>
+                    <td>{{horaXhora.prod_online}}</td>
+                    <td></td>
+                    <td>{{horaXhora.hora}}</td>
+                </tr>    
+                {% endfor %}           
+                
+            </tbody>  
+        
+    </body>
+</html>
+
+
+        
